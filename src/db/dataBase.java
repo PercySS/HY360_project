@@ -6,25 +6,24 @@ import java.sql.*;
 
 
 public class dataBase {
-    private static Connection connection = null;
-    private final static String driver = "com.mysql.jdbc.Driver";
-    private final static String url = "jdbc:mysql://localhost:3306/restaurant";
+    static Connection connection = null;
+    private final static String driver = "com.mysql.cj.jdbc.Driver";
+    private final static String url = "jdbc:mysql://localhost";
     private final static String user = "root";
     private final static String password = "";
+    private final static String dbName = "agency_db";
+    private final static int port = 3306;
 
 
     // ======== DataBase Methods ========
     public static void createDb() {
         try {
             Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url + ":" + port + "/", user, password);
             Statement stm = con.createStatement();
             stm.executeUpdate("DROP DATABASE IF EXISTS agency_db");
             stm.executeUpdate("CREATE DATABASE IF NOT EXISTS agency_db");
             System.out.println("Database created");
-            
-
-
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -34,7 +33,7 @@ public class dataBase {
         try {
             Class.forName(driver);
             if (connection == null) {
-                connection = DriverManager.getConnection(url, user, password);
+                connection = DriverManager.getConnection(url + ":" + port + "/" + dbName + "?characterEncoding=UTF-8", user, password);
             }
             Statement stm = connection.createStatement();
             stm.executeUpdate(query);
@@ -49,7 +48,7 @@ public class dataBase {
         try {
             Class.forName(driver);
             if (connection == null) {
-                connection = DriverManager.getConnection(url, user, password);
+                connection = DriverManager.getConnection(url + ":" + port + "/" + dbName + "?characterEncoding=UTF-8", user, password);
             }
             Statement stm = connection.createStatement();
             ResultSet rs = stm.executeQuery(query);

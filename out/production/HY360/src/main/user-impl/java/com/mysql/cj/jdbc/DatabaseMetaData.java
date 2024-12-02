@@ -819,7 +819,7 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 
     protected void convertToJdbcFunctionList(ResultSet proceduresRs, List<ComparableWrapper<String, Row>> procedureRows, Field[] fields) throws SQLException {
         while (proceduresRs.next()) {
-            String procDb = proceduresRs.getString("db");
+            String procDb = proceduresRs.getString("classes");
             String functionName = proceduresRs.getString("name");
 
             byte[][] rowData = null;
@@ -856,7 +856,7 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
     protected void convertToJdbcProcedureList(boolean fromSelect, ResultSet proceduresRs, List<ComparableWrapper<String, Row>> procedureRows)
             throws SQLException {
         while (proceduresRs.next()) {
-            String procDb = proceduresRs.getString("db");
+            String procDb = proceduresRs.getString("classes");
             String procedureName = proceduresRs.getString("name");
             byte[][] rowData = new byte[9][];
             rowData[0] = this.databaseTerm.getValue() == DatabaseTerm.SCHEMA ? s2b("def") : s2b(procDb);
