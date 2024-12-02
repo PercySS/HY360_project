@@ -15,6 +15,10 @@ The following picture demonstrates the project model, which includes the databas
 ![Image Alt Text](docs/database_final.png)
 
 ## Project Structure
-The project is structured as the Professor's instructions. See the [Project Structure](docs/ΗΥ360_project_2024.pdf) file for more details.
+The project is structured as the Professor's instructions. See [Project Structure](docs/ΗΥ360_project_2024.pdf) for more details.
+
+## Project report
+You can find the project report [here](docs/project_report.pdf) .
+
 ## License
 This project is owned by Dimitrios Makrogiannis csd4676 aka PercySS.

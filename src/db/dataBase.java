@@ -21,7 +21,8 @@ public class dataBase {
             Statement stm = con.createStatement();
             stm.executeUpdate("DROP DATABASE IF EXISTS agency_db");
             stm.executeUpdate("CREATE DATABASE IF NOT EXISTS agency_db");
-            update
+            System.out.println("Database created");
+            
 
 
         } catch (Exception e) {
