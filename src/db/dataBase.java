@@ -32,7 +32,8 @@ public class dataBase {
         //create an example table and add some values and query back
         try (Connection conn = DriverManager.getConnection(url + ":" + port + "/" + databaseName + "?characterEncoding=UTF-8",username, password)) {
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS test_table (id INT PRIMARY KEY, name VARCHAR(255))");
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS test_table (id INT PRIMARY KEY" +
+                    ", name VARCHAR(255))");
             stmt.executeUpdate("INSERT INTO test_table (id, name) VALUES (3, 'Negros')");
             stmt.executeUpdate("INSERT INTO test_table (id, name) VALUES (4, 'Dimitris')");
             ResultSet rs = stmt.executeQuery("SELECT * FROM test_table");
