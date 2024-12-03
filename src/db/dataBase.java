@@ -97,11 +97,20 @@ public class dataBase {
                 "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
                 ")");
 
-        update("CREATE TABLE IF NOT EXISTS tickets (" +
+        update("CREATE TABLE IF NOT EXISTS ticketsVIP (" +
                 "TicketId INT AUTO_INCREMENT PRIMARY KEY," +
-                "SeatType VARCHAR(255) NOT NULL," +
                 "Price FLOAT NOT NULL," +
                 "Availability INT NOT NULL" +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
+                "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId)" +
+                ")");
+
+        update("CREATE TABLE IF NOT EXISTS ticketsRegular (" +
+                "TicketId INT AUTO_INCREMENT PRIMARY KEY," +
+                "Price FLOAT NOT NULL," +
+                "Availability INT NOT NULL" +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
+                "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId)" +
                 ")");
     }
 

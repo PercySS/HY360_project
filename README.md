@@ -4,8 +4,6 @@ This repository is created for the **HY360** course project, which focuses on **
 
 ## Contributors
 - **Dimitrios Makrogiannis**
-- **Gerasimos Efthimioy**
-- **Dimitrios Vidalis**
 
 ## Project Description
 This project aims to demonstrate the practical application of the concepts learned in the HY360 course, including database creation, table relationships, and file operations.
