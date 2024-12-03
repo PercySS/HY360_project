@@ -1,7 +1,9 @@
 package classes;
 
-import java.sql.Time;
-import java.util.Date;
+import java.sql.*;
+
+import static classes.Ticket.*;
+import static db.dataBase.*;
 
 public class Event {
     private int EventId;
@@ -62,35 +64,21 @@ public class Event {
         return Capacity;
     }
 
-    // ==== Constructors ====
-    public Event() {
+    public static void addEvent(int EventId, String Name, Date Date, Time Time, String Type, int Capacity) throws SQLException {
+        // I use my update to insert the data into the database from the db.database class
+        update("INSERT INTO events VALUES (" + EventId + ", '" + Name + "', '" + Date + "', '" + Time + "', '" + Type + "', " + Capacity + ")");
+
+        for (int i = 0; i < Capacity; i++) {
+            if (i%2 == 0) {
+                addTicketVIP(i, 100, 1, EventId);
+            } else {
+                addTicketRegular(i, 50, 1, EventId);
+            }
+        }
     }
 
-    public Event(int EventId, String Name, Date Date, Time Time, String Type, int Capacity) {
-        this.EventId = EventId;
-        this.Name = Name;
-        this.Date = Date;
-        this.Time = Time;
-        this.Type = Type;
-        this.Capacity = Capacity;
+    public static void deleteEvent(Connection conn, int EventId) throws SQLException {
+        update("DELETE FROM events WHERE EventId = " + EventId);
     }
-
-    // ==== Methods ====
-    @Override
-    public String toString() {
-        return "Event{" +
-                "EventId=" + EventId +
-                ", Name='" + Name + '\'' +
-                ", Date=" + Date +
-                ", Time=" + Time +
-                ", Type='" + Type + '\'' +
-                ", Capacity=" + Capacity +
-                '}';
-    }
-
-    public void print() {
-        System.out.println(toString());
-    }
-
 
 }

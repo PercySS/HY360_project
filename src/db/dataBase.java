@@ -74,42 +74,48 @@ public class dataBase {
     public static void initDb() {
         update("CREATE TABLE IF NOT EXISTS events (" +
                 "EventId INT AUTO_INCREMENT PRIMARY KEY," +
-                "Name VARCHAR(255) NOT NULL," +
-                "Date DATE NOT NULL," +
-                "Time TIME NOT NULL," +
-                "Type VARCHAR(255) NOT NULL," +
-                "Capacity INT NOT NULL" +
+                "Name VARCHAR(255)," +
+                "Date DATE," +
+                "Time TIME," +
+                "Type VARCHAR(255)," +
+                "Capacity INT" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS customers (" +
                 "CustomerId INT AUTO_INCREMENT PRIMARY KEY," +
-                "FullName VARCHAR(255) NOT NULL," +
-                "Email VARCHAR(255) NOT NULL," +
-                "CreditCardInfo VARCHAR(255) NOT NULL" +
+                "FullName VARCHAR(255)," +
+                "Email VARCHAR(255)," +
+                "CreditCardInfo VARCHAR(255)" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS bookings (" +
                 "BookingId INT AUTO_INCREMENT PRIMARY KEY," +
-                "BookingDate DATE NOT NULL," +
-                "CustomerId INT NOT NULL," +
-                "EventId INT NOT NULL," +
+                "BookingDate DATE," +
+                "CustomerId INT," +
+                "EventId INT," +
+                "TicketsReg INT," +
+                "TicketsVIP INT," +
                 "FOREIGN KEY (CustomerId) REFERENCES customers(CustomerId)," +
                 "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS ticketsVIP (" +
                 "TicketId INT AUTO_INCREMENT PRIMARY KEY," +
-                "Price FLOAT NOT NULL," +
-                "Availability INT NOT NULL" +
-                "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
+                "Price DEC(10, 2)," +
+                "Availability INT," +
+                "EventId INT," +
+                "BookingId INT," +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId)," +
                 "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId)" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS ticketsRegular (" +
                 "TicketId INT AUTO_INCREMENT PRIMARY KEY," +
-                "Price FLOAT NOT NULL," +
-                "Availability INT NOT NULL" +
-                "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
+                "Price DEC(10, 2)," +
+                "Availability INT," +
+                "EventId INT," +
+                "BookingId INT," +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId)," +
                 "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId)" +
                 ")");
     }

@@ -1,6 +1,7 @@
 package classes;
 
 import java.sql.*;
+import static db.dataBase.*;
 
 public class Ticket {
     private int TicketId;
@@ -27,69 +28,36 @@ public class Ticket {
     }
     public int getAvailability() { return Availability; }
 
-    public static void addTicketVIP(Connection conn, int TicketId, float Price, int Availability, int EventId) throws SQLException {
-        String query = "INSERT INTO ticketsVIP VALUES (?, ?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, TicketId);
-        stmt.setFloat(2, Price);
-        stmt.setInt(3, Availability);
-        stmt.setInt(4, EventId);
-        stmt.executeUpdate();
+    public static void addTicketVIP(int TicketId, float Price, int Availability, int EventId) throws SQLException {
+        update("INSERT INTO ticketsVIP VALUES (" + TicketId + ", " + Price + ", " + Availability + ", " + EventId + ", NULL)");
     }
 
-    public static void addTicketRegular(Connection conn, int TicketId, float Price, int Availability, int EventId) throws SQLException {
-        String query = "INSERT INTO ticketsRegular VALUES (?, ?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, TicketId);
-        stmt.setFloat(2, Price);
-        stmt.setInt(3, Availability);
-        stmt.setInt(4, EventId);
-        stmt.executeUpdate();
+    public static void addTicketRegular(int TicketId, float Price, int Availability, int EventId) throws SQLException {
+        update("INSERT INTO ticketsRegular VALUES (" + TicketId + ", " + Price + ", " + Availability + ", " + EventId + ", NULL)");
     }
 
-    public static void deleteTicketVIP(Connection conn, int TicketId) throws SQLException {
-        String query = "DELETE FROM ticketsVIP WHERE TicketId = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, TicketId);
-        stmt.executeUpdate();
+    public static void deleteTicketVIP(int TicketId) throws SQLException {
+        update("DELETE FROM ticketsVIP WHERE TicketId = " + TicketId);
     }
 
-    public static void deleteTicketRegular(Connection conn, int TicketId) throws SQLException {
-        String query = "DELETE FROM ticketsRegular WHERE TicketId = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, TicketId);
-        stmt.executeUpdate();
+    public static void deleteTicketRegular(int TicketId) throws SQLException {
+        update("DELETE FROM ticketsRegular WHERE TicketId = " + TicketId);
     }
 
-    public static void updateTicketsPriceVIP(Connection con, int EventId, float Price) throws SQLException {
-        String query = "UPDATE ticketsVIP SET Price = ? WHERE EventId = ?";
-        PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setFloat(1, Price);
-        stmt.setInt(2, EventId);
-        stmt.executeUpdate();
+    public static void updateTicketsPriceVIP(int EventId, float Price) throws SQLException {
+        update("UPDATE ticketsVIP SET Price = " + Price + " WHERE EventId = " + EventId);
     }
 
-    public static void updateTicketsPriceRegular(Connection con, int EventId, float Price) throws SQLException {
-        String query = "UPDATE ticketsRegular SET Price = ? WHERE EventId = ?";
-        PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setFloat(1, Price);
-        stmt.setInt(2, EventId);
-        stmt.executeUpdate();
+    public static void updateTicketsPriceRegular(int EventId, float Price) throws SQLException {
+        update("UPDATE ticketsRegular SET Price = " + Price + " WHERE EventId = " + EventId);
     }
 
-    public static void updateTicketsAvailabilityVIP(Connection con, int EventId, int Availability) throws SQLException {
-        String query = "UPDATE ticketsVIP SET Availability = ? WHERE EventId = ?";
-        PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setInt(1, Availability);
-        stmt.setInt(2, EventId);
-        stmt.executeUpdate();
+    public static void updateTicketsAvailabilityVIP(int EventId, int Availability, int BookingId) throws SQLException {
+        update("UPDATE ticketsVIP SET Availability = " + Availability + ", BookingId = " + BookingId + " WHERE EventId = " + EventId);
+
     }
 
-    public static void updateTicketsAvailabilityRegular(Connection con, int EventId, int Availability) throws SQLException {
-        String query = "UPDATE ticketsRegular SET Availability = ? WHERE EventId = ?";
-        PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setInt(1, Availability);
-        stmt.setInt(2, EventId);
-        stmt.executeUpdate();
+    public static void updateTicketsAvailabilityRegular(int EventId, int Availability, int BookingId) throws SQLException {
+        update("UPDATE ticketsRegular SET Availability = " + Availability + ", BookingId = " + BookingId + " WHERE EventId = " + EventId);
     }
 }

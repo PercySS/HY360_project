@@ -54,21 +54,12 @@ public class Booking {
         return EventId;
     }
 
-    public static void addBooking(Connection conn, int BookingId, Date BookingDate, int CustomerId, int EventId) throws SQLException {
-        String query = "INSERT INTO Booking VALUES (?, ?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, BookingId);
-        stmt.setDate(2, (java.sql.Date) BookingDate);
-        stmt.setInt(3, CustomerId);
-        stmt.setInt(4, EventId);
-        stmt.executeUpdate();
+    public static void addBooking(int BookingId, Date BookingDate, int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
+        update("INSERT INTO bookings VALUES (" + BookingId + ", '" + BookingDate + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ")");
     }
 
     public static void deleteBooking(Connection conn, int BookingId) throws SQLException {
-        String query = "DELETE FROM Booking WHERE BookingId = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, BookingId);
-        stmt.executeUpdate();
+        update("DELETE FROM bookings WHERE BookingId = " + BookingId);
     }
 
 
