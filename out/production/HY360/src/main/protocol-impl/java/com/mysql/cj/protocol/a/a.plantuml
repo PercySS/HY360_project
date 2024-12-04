@@ -1,0 +1,1474 @@
+@startuml
+
+title __A's Class Diagram__\n
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        abstract class com.mysql.cj.protocol.a.AbstractRowFactory {
+            # canReuseRowPacketForBufferRow : boolean
+            # columnDefinition : ColumnDefinition
+            # exceptionInterceptor : ExceptionInterceptor
+            # resultSetConcurrency : Concurrency
+            # useBufferRowSizeThreshold : RuntimeProperty<Integer>
+            # valueDecoder : ValueDecoder
+            + canReuseRowPacketForBufferRow()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        abstract class com.mysql.cj.protocol.a.AbstractValueEncoder {
+            # charEncoding : RuntimeProperty<String>
+            # exceptionInterceptor : ExceptionInterceptor
+            # preserveInstants : RuntimeProperty<Boolean>
+            # propertySet : PropertySet
+            # sendFractionalSeconds : RuntimeProperty<Boolean>
+            # sendFractionalSecondsForTime : RuntimeProperty<Boolean>
+            # serverSession : ServerSession
+            + encodeAsQueryAttribute()
+            + encodeAsText()
+            + getBinaryLength()
+            + getBytes()
+            + getTextLength()
+            + init()
+            + writeDateTimeWithOffset()
+            # adjustDuration()
+            # adjustLocalDateTime()
+            # adjustLocalTime()
+            # adjustTime()
+            # adjustTimestamp()
+            # escapeBytesIfNeeded()
+            # getScaled()
+            # writeDate()
+            # writeDateTime()
+            # writeTime()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.BinaryResultsetReader {
+            # protocol : NativeProtocol
+            + BinaryResultsetReader()
+            + read()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.BinaryRowFactory {
+            + BinaryRowFactory()
+            + canReuseRowPacketForBufferRow()
+            + createFromMessage()
+            - extractNativeEncodedColumn()
+            - unpackBinaryResultSetRow()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.BlobValueEncoder {
+            + encodeAsText()
+            + getBytes()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.BooleanValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ByteArrayValueEncoder {
+            # maxByteArrayAsHex : RuntimeProperty<Integer>
+            + encodeAsBinary()
+            + getBytes()
+            + getString()
+            + init()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ClobValueEncoder {
+            + getBytes()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ColumnDefinitionFactory {
+            # columnCount : long
+            # columnDefinitionFromCache : ColumnDefinition
+            + ColumnDefinitionFactory()
+            + createFromFields()
+            + createFromMessage()
+            + getColumnCount()
+            + getColumnDefinitionFromCache()
+            + mergeColumnDefinitions()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ColumnDefinitionReader {
+            - protocol : NativeProtocol
+            + ColumnDefinitionReader()
+            + read()
+            # unpackField()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.CompressedInputStream {
+            - buffer : byte[]
+            - in : InputStream
+            - inflater : Inflater
+            - log : Log
+            - packetHeaderBuffer : byte[]
+            - pos : int
+            - traceProtocol : RuntimeProperty<Boolean>
+            + CompressedInputStream()
+            + available()
+            + close()
+            + read()
+            + read()
+            + read()
+            + skip()
+            - getNextPacketFromServer()
+            - getNextPacketIfRequired()
+            - readFully()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.CompressedPacketSender {
+            {static} + COMP_HEADER_LENGTH : int
+            {static} + MIN_COMPRESS_LEN : int
+            - compressedPacket : byte[]
+            - compressedPayloadLen : int
+            - compressedSequenceId : byte
+            - deflater : Deflater
+            - outputStream : BufferedOutputStream
+            + CompressedPacketSender()
+            + send()
+            + stop()
+            + undecorate()
+            + undecorateAll()
+            - addPayload()
+            - addUncompressedHeader()
+            - completeCompression()
+            - resetPacket()
+            - sendCompressedPacket()
+            - writeCompressedHeader()
+            - writeUncompressedHeader()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.DebugBufferingPacketReader {
+            {static} - DEBUG_MSG_LEN : int
+            {static} - MAX_PACKET_DUMP_LENGTH : int
+            - lastHeaderPayload : String
+            - packetDebugBuffer : LinkedList<StringBuilder>
+            - packetDebugBufferSize : RuntimeProperty<Integer>
+            - packetReader : MessageReader<NativePacketHeader, NativePacketPayload>
+            - packetSequenceReset : boolean
+            + DebugBufferingPacketReader()
+            + getMessageSequence()
+            + probeHeader()
+            + probeMessage()
+            + readHeader()
+            + readMessage()
+            + resetMessageSequence()
+            + undecorate()
+            + undecorateAll()
+            - readHeaderLocal()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.DebugBufferingPacketSender {
+            {static} - DEBUG_MSG_LEN : int
+            - maxPacketDumpLength : int
+            - packetDebugBuffer : LinkedList<StringBuilder>
+            - packetDebugBufferSize : RuntimeProperty<Integer>
+            - packetSender : MessageSender<NativePacketPayload>
+            + DebugBufferingPacketSender()
+            + send()
+            + setMaxPacketDumpLength()
+            + undecorate()
+            + undecorateAll()
+            - pushPacketToDebugBuffer()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.DurationValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.InputStreamValueEncoder {
+            - streamConvertBuf : byte[]
+            + encodeAsBinary()
+            + encodeAsText()
+            + getBytes()
+            + getString()
+            # streamToBytes()
+            - escapeblockFast()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.InstantValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.LocalDateTimeValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.LocalDateValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.LocalTimeValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.MergingColumnDefinitionFactory {
+            + MergingColumnDefinitionFactory()
+            + createFromFields()
+            + mergeColumnDefinitions()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.MultiPacketReader {
+            - packetReader : MessageReader<NativePacketHeader, NativePacketPayload>
+            + MultiPacketReader()
+            + getMessageSequence()
+            + probeHeader()
+            + probeMessage()
+            + readHeader()
+            + readMessage()
+            + resetMessageSequence()
+            + undecorate()
+            + undecorateAll()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.MysqlBinaryValueDecoder {
+            + decodeBit()
+            + decodeByteArray()
+            + decodeDate()
+            + decodeDatetime()
+            + decodeDecimal()
+            + decodeDouble()
+            + decodeFloat()
+            + decodeInt1()
+            + decodeInt2()
+            + decodeInt4()
+            + decodeInt8()
+            + decodeSet()
+            + decodeTime()
+            + decodeTimestamp()
+            + decodeUInt1()
+            + decodeUInt2()
+            + decodeUInt4()
+            + decodeUInt8()
+            + decodeYear()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.MysqlTextValueDecoder {
+            {static} + DATETIME_PTRN : Pattern
+            {static} + DATE_BUF_LEN : int
+            {static} + MAX_SIGNED_LONG_LEN : int
+            {static} + TIMESTAMP_STR_LEN_NO_FRAC : int
+            {static} + TIMESTAMP_STR_LEN_WITH_MICROS : int
+            {static} + TIMESTAMP_STR_LEN_WITH_NANOS : int
+            {static} + TIME_PTRN : Pattern
+            {static} + TIME_STR_LEN_MAX_NO_FRAC : int
+            {static} + TIME_STR_LEN_MAX_WITH_MICROS : int
+            {static} + TIME_STR_LEN_MIN : int
+            + decodeBit()
+            + decodeByteArray()
+            + decodeDate()
+            + decodeDatetime()
+            + decodeDecimal()
+            + decodeDouble()
+            + decodeFloat()
+            + decodeInt1()
+            + decodeInt2()
+            + decodeInt4()
+            + decodeInt8()
+            + decodeSet()
+            + decodeTime()
+            + decodeTimestamp()
+            + decodeUInt1()
+            + decodeUInt2()
+            + decodeUInt4()
+            + decodeUInt8()
+            + decodeYear()
+            {static} + getBigInteger()
+            {static} + getDate()
+            {static} + getDouble()
+            {static} + getInt()
+            {static} + getLong()
+            {static} + getTime()
+            {static} + getTimestamp()
+            {static} + isDate()
+            {static} + isTime()
+            {static} + isTimestamp()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeAuthenticationProvider {
+            {static} - AUTH_411_OVERHEAD : int
+            {static} - NONE : String
+            - authenticationPlugins : Map<String, AuthenticationPlugin<NativePacketPayload>>
+            - callbackHandler : MysqlCallbackHandler
+            - clientDefaultAuthenticationPluginExplicitelySet : boolean
+            - clientDefaultAuthenticationPluginName : String
+            - database : String
+            - exceptionInterceptor : ExceptionInterceptor
+            - password : String
+            - propertySet : PropertySet
+            - protocol : Protocol<NativePacketPayload>
+            - seed : String
+            - serverDefaultAuthenticationPluginName : String
+            - useConnectWithDb : boolean
+            - username : String
+            + NativeAuthenticationProvider()
+            + changeUser()
+            + connect()
+            + getExceptionInterceptor()
+            + init()
+            - appendConnectionAttributes()
+            - checkConfidentiality()
+            - createChangeUserPacket()
+            - createHandshakeResponsePacket()
+            - getAuthenticationPlugin()
+            - getConnectionAttributesMap()
+            - getNthFactorPassword()
+            - loadAuthenticationPlugins()
+            - proceedHandshakeWithPluggableAuthentication()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeCapabilities {
+            - authPluginDataLength : int
+            - capabilityFlags : int
+            - initialHandshakePacket : NativePacketPayload
+            - protocolVersion : byte
+            - seed : String
+            - serverDefaultCollationIndex : int
+            - serverHasFracSecsSupport : boolean
+            - serverVersion : ServerVersion
+            - statusFlags : int
+            - threadId : long
+            + NativeCapabilities()
+            + getAuthPluginDataLength()
+            + getCapabilityFlags()
+            + getInitialHandshakePacket()
+            + getSeed()
+            + getServerDefaultCollationIndex()
+            + getServerVersion()
+            + getStatusFlags()
+            + getThreadId()
+            + serverSupportsFracSecs()
+            + setCapabilityFlags()
+            + setThreadId()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeConstants {
+            {static} + BIN_LEN_DATE : int
+            {static} + BIN_LEN_DOUBLE : int
+            {static} + BIN_LEN_FLOAT : int
+            {static} + BIN_LEN_INT1 : int
+            {static} + BIN_LEN_INT2 : int
+            {static} + BIN_LEN_INT4 : int
+            {static} + BIN_LEN_INT8 : int
+            {static} + BIN_LEN_TIMESTAMP_NO_FRAC : int
+            {static} + BIN_LEN_TIMESTAMP_WITH_MICROS : int
+            {static} + BIN_LEN_TIMESTAMP_WITH_TZ : int
+            {static} + BIN_LEN_TIME_NO_FRAC : int
+            {static} + BIN_LEN_TIME_WITH_MICROS : int
+            {static} + COM_BINLOG_DUMP : int
+            {static} + COM_BINLOG_DUMP_GTID : int
+            {static} + COM_CHANGE_USER : int
+            {static} + COM_CONNECT : int
+            {static} + COM_CONNECT_OUT : int
+            {static} + COM_CREATE_DB : int
+            {static} + COM_DAEMON : int
+            {static} + COM_DEBUG : int
+            {static} + COM_DELAYED_INSERT : int
+            {static} + COM_DROP_DB : int
+            {static} + COM_FIELD_LIST : int
+            {static} + COM_INIT_DB : int
+            {static} + COM_PING : int
+            {static} + COM_PROCESS_INFO : int
+            {static} + COM_PROCESS_KILL : int
+            {static} + COM_QUERY : int
+            {static} + COM_QUIT : int
+            {static} + COM_REFRESH : int
+            {static} + COM_REGISTER_SLAVE : int
+            {static} + COM_RESET_CONNECTION : int
+            {static} + COM_SET_OPTION : int
+            {static} + COM_SHUTDOWN : int
+            {static} + COM_SLEEP : int
+            {static} + COM_STATISTICS : int
+            {static} + COM_STMT_CLOSE : int
+            {static} + COM_STMT_EXECUTE : int
+            {static} + COM_STMT_FETCH : int
+            {static} + COM_STMT_PREPARE : int
+            {static} + COM_STMT_RESET : int
+            {static} + COM_STMT_SEND_LONG_DATA : int
+            {static} + COM_TABLE_DUMP : int
+            {static} + COM_TIME : int
+            {static} + HEADER_LENGTH : int
+            {static} + MAX_PACKET_SIZE : int
+            {static} + NO_CHARSET_INFO : int
+            {static} + SEED_LENGTH : int
+            {static} + TYPE_ID_EOF : short
+            {static} + TYPE_ID_ERROR : short
+            {static} + TYPE_ID_LOCAL_INFILE : short
+            {static} + TYPE_ID_OK : short
+            + NativeConstants()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        enum IntegerDataType {
+          INT1
+          INT2
+          INT3
+          INT4
+          INT6
+          INT8
+          INT_LENENC
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        enum StringLengthDataType {
+          STRING_FIXED
+          STRING_VAR
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        enum StringSelfDataType {
+          STRING_EOF
+          STRING_LENENC
+          STRING_TERM
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeMessageBuilder {
+            - supportsQueryAttributes : boolean
+            + NativeMessageBuilder()
+            + buildClose()
+            + buildComInitDb()
+            + buildComInitDb()
+            + buildComPing()
+            + buildComQuery()
+            + buildComQuery()
+            + buildComQuery()
+            + buildComQuery()
+            + buildComQuery()
+            + buildComQuit()
+            + buildComResetConnection()
+            + buildComSetOption()
+            + buildComShutdown()
+            + buildComStmtClose()
+            + buildComStmtExecute()
+            + buildComStmtFetch()
+            + buildComStmtPrepare()
+            + buildComStmtPrepare()
+            + buildComStmtReset()
+            + buildComStmtSendLongData()
+            + buildComStmtSendLongDataHeader()
+            + buildSqlStatement()
+            + buildSqlStatement()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativePacketHeader {
+            # packetHeaderBuf : ByteBuffer
+            + NativePacketHeader()
+            + NativePacketHeader()
+            + getBuffer()
+            + getMessageSequence()
+            + getMessageSize()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativePacketPayload {
+            {static} + NULL_LENGTH : long
+            {static} + TYPE_ID_AUTH_MORE_DATA : short
+            {static} + TYPE_ID_AUTH_NEXT_FACTOR : short
+            {static} + TYPE_ID_AUTH_SWITCH : short
+            {static} + TYPE_ID_EOF : short
+            {static} + TYPE_ID_ERROR : short
+            {static} + TYPE_ID_LOCAL_INFILE : short
+            {static} + TYPE_ID_OK : short
+            {static} ~ MAX_BYTES_TO_DUMP : int
+            {static} ~ NO_LENGTH_LIMIT : int
+            - byteBuffer : byte[]
+            - payloadLength : int
+            - position : int
+            - tags : Map<String, Integer>
+            + NativePacketPayload()
+            + NativePacketPayload()
+            + ensureCapacity()
+            {static} + extractSqlFromPacket()
+            + getByteBuffer()
+            + getCapacity()
+            + getPayloadLength()
+            + getPosition()
+            + getTag()
+            + isAuthMethodSwitchRequestPacket()
+            + isAuthMoreDataPacket()
+            + isAuthNextFactorPacket()
+            + isEOFPacket()
+            + isErrorPacket()
+            + isOKPacket()
+            + isResultSetOKPacket()
+            + readBytes()
+            + readBytes()
+            + readInteger()
+            + readString()
+            + readString()
+            + setByteBuffer()
+            + setPayloadLength()
+            + setPosition()
+            + setTag()
+            + skipBytes()
+            + toString()
+            + toSuperString()
+            + writeBytes()
+            + writeBytes()
+            + writeBytes()
+            + writeBytes()
+            + writeInteger()
+            - adjustPayloadLength()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeProtocol {
+            {static} # COMP_HEADER_LENGTH : int
+            {static} # INITIAL_PACKET_SIZE : int
+            {static} # MAX_QUERY_SIZE_TO_EXPLAIN : int
+            # PROTOCOL_ENTITY_CLASS_TO_BINARY_READER : Map<Class<? extends ProtocolEntity>, ProtocolEntityReader<? extends ProtocolEntity, ? extends Message>>
+            # PROTOCOL_ENTITY_CLASS_TO_TEXT_READER : Map<Class<? extends ProtocolEntity>, ProtocolEntityReader<? extends ProtocolEntity, ? extends Message>>
+            {static} # SSL_REQUEST_LENGTH : int
+            # compressedPacketSender : CompressedPacketSender
+            # hadWarnings : boolean
+            # packetReader : MessageReader<NativePacketHeader, NativePacketPayload>
+            # packetSender : MessageSender<NativePacketPayload>
+            # packetSequence : byte
+            # reusablePacket : NativePacketPayload
+            # serverSession : NativeServerSession
+            # sharedSendPacket : NativePacketPayload
+            # useCompression : boolean
+            {static} ~ DEFAULT_ENCODERS : Map<Class<?>, Supplier<ValueEncoder>>
+            {static} - EXPLAINABLE_STATEMENT : String
+            {static} - EXPLAINABLE_STATEMENT_EXTENSION : String[]
+            - autoGenerateTestcaseScript : boolean
+            - commandCount : int
+            - loadFileBufRef : SoftReference<NativePacketPayload>
+            - localInfileInputStream : InputStream
+            - logSlowQueries : boolean
+            - maintainTimeStats : RuntimeProperty<Boolean>
+            - maxAllowedPacket : RuntimeProperty<Integer>
+            - maxQuerySizeToLog : RuntimeProperty<Integer>
+            - metricsHolder : BaseMetricsHolder
+            - nativeMessageBuilder : NativeMessageBuilder
+            - profileSQL : boolean
+            - queryInterceptors : List<QueryInterceptor>
+            - slowQueryThreshold : long
+            - statementExecutionDepth : int
+            - streamingData : ResultsetRows
+            - useAutoSlowLog : boolean
+            - useServerPrepStmts : RuntimeProperty<Boolean>
+            - warningCount : int
+            + NativeProtocol()
+            + afterHandshake()
+            + applyPacketDecorators()
+            + beforeHandshake()
+            + changeDatabase()
+            + changeUser()
+            + checkErrorMessage()
+            + checkErrorMessage()
+            + checkTransactionState()
+            + clearInputStream()
+            + close()
+            + configureTimeZone()
+            + connect()
+            + convertShowWarningsToSQLWarnings()
+            + dumpPacketRingBuffer()
+            + explainSlowQuery()
+            {static} + findMysqlType()
+            + generateQueryCommentBlock()
+            + getCommandCount()
+            + getCurrentTimeNanosOrMillis()
+            {static} + getInstance()
+            + getLocalInfileInputStream()
+            + getMessageBuilder()
+            + getMetricsHolder()
+            + getPacketReader()
+            + getPacketSender()
+            + getQueryInterceptors()
+            + getReusablePacket()
+            + getServerSession()
+            + getSession()
+            + getSharedSendPacket()
+            + getSlowQueryThreshold()
+            + getStreamingData()
+            + getValueEncoderSupplier()
+            + getWarningCount()
+            + hadWarnings()
+            + handlePropertyChange()
+            + init()
+            + initServerSession()
+            + invokeQueryInterceptorsPost()
+            + invokeQueryInterceptorsPost()
+            + invokeQueryInterceptorsPre()
+            + invokeQueryInterceptorsPre()
+            + negotiateSSLConnection()
+            + probeMessage()
+            + quit()
+            + read()
+            + read()
+            + readAllResults()
+            + readMessage()
+            + readMetadata()
+            + readNextResultset()
+            + readQueryResult()
+            + readServerCapabilities()
+            + readServerStatusForResultSets()
+            + reclaimLargeReusablePacket()
+            + rejectProtocol()
+            + releaseResources()
+            + scanForAndThrowDataTruncation()
+            + send()
+            + sendCommand()
+            + sendFileToServer()
+            + sendQueryPacket()
+            + setHadWarnings()
+            + setLocalInfileInputStream()
+            + setQueryInterceptors()
+            + setSocketTimeout()
+            + setStreamingData()
+            + setWarningCount()
+            + skipPacket()
+            + unsetStreamingData()
+            + versionMeetsMinimum()
+            # isDataAvailable()
+            # useNanosForElapsedTime()
+            - alignPacketSize()
+            - appendDeadlockStatusInformation()
+            - appendResultSetSlashGStyle()
+            - calculateSlowQueryThreshold()
+            - checkErrorMessage()
+            - checkForOutstandingStreamingData()
+            - getFileStream()
+            - getNativeMessageBuilder()
+            - reclaimLargeSharedSendPacket()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeServerSession {
+            {static} + CLIENT_CAN_HANDLE_EXPIRED_PASSWORD : int
+            {static} + CLIENT_COMPRESS : int
+            {static} + CLIENT_CONNECT_ATTRS : int
+            {static} + CLIENT_CONNECT_WITH_DB : int
+            {static} + CLIENT_DEPRECATE_EOF : int
+            {static} + CLIENT_FOUND_ROWS : int
+            {static} + CLIENT_INTERACTIVE : int
+            {static} + CLIENT_LOCAL_FILES : int
+            {static} + CLIENT_LONG_FLAG : int
+            {static} + CLIENT_LONG_PASSWORD : int
+            {static} + CLIENT_MULTI_FACTOR_AUTHENTICATION : int
+            {static} + CLIENT_MULTI_RESULTS : int
+            {static} + CLIENT_MULTI_STATEMENTS : int
+            {static} + CLIENT_PLUGIN_AUTH : int
+            {static} + CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA : int
+            {static} + CLIENT_PROTOCOL_41 : int
+            {static} + CLIENT_PS_MULTI_RESULTS : int
+            {static} + CLIENT_QUERY_ATTRIBUTES : int
+            {static} + CLIENT_RESERVED : int
+            {static} + CLIENT_SECURE_CONNECTION : int
+            {static} + CLIENT_SESSION_TRACK : int
+            {static} + CLIENT_SSL : int
+            {static} + CLIENT_TRANSACTIONS : int
+            {static} + SERVER_MORE_RESULTS_EXISTS : int
+            {static} + SERVER_QUERY_NO_GOOD_INDEX_USED : int
+            {static} + SERVER_QUERY_NO_INDEX_USED : int
+            {static} + SERVER_QUERY_WAS_SLOW : int
+            {static} + SERVER_SESSION_STATE_CHANGED : int
+            {static} + SERVER_STATUS_AUTOCOMMIT : int
+            {static} + SERVER_STATUS_CURSOR_EXISTS : int
+            {static} + SERVER_STATUS_IN_TRANS : int
+            {static} + SERVER_STATUS_LAST_ROW_SENT : int
+            - autoCommit : boolean
+            - cacheDefaultTimeZone : RuntimeProperty<Boolean>
+            - capabilities : NativeCapabilities
+            - charsetSettings : CharsetSettings
+            - clientParam : long
+            - defaultTimeZone : TimeZone
+            - oldStatusFlags : int
+            - propertySet : PropertySet
+            - serverSessionStateController : NativeServerSessionStateController
+            - serverVariables : Map<String, String>
+            - sessionTimeZone : TimeZone
+            - statusFlags : int
+            + NativeServerSession()
+            + cursorExists()
+            + getCapabilities()
+            + getCharsetSettings()
+            + getClientParam()
+            + getDefaultTimeZone()
+            + getServerSessionStateController()
+            + getServerVariable()
+            + getServerVariable()
+            + getServerVariables()
+            + getServerVersion()
+            + getSessionTimeZone()
+            + getStatusFlags()
+            + getTransactionState()
+            + hasLongColumnInfo()
+            + hasMoreResults()
+            + inTransactionOnServer()
+            + isAutoCommit()
+            + isAutocommit()
+            + isEOFDeprecated()
+            + isLastRowSent()
+            + isLowerCaseTableNames()
+            + isNoBackslashEscapesSet()
+            + isQueryCacheEnabled()
+            + isServerTruncatesFracSecs()
+            + isSessionStateTrackingEnabled()
+            + isSetNeededForAutoCommitMode()
+            + isVersion()
+            + noGoodIndexUsed()
+            + noIndexUsed()
+            + preserveOldTransactionState()
+            + queryWasSlow()
+            + setAutoCommit()
+            + setCapabilities()
+            + setCharsetSettings()
+            + setClientParam()
+            + setServerVariables()
+            + setSessionTimeZone()
+            + setStatusFlags()
+            + setStatusFlags()
+            + storesLowerCaseTableNames()
+            + supportsQueryAttributes()
+            + useAnsiQuotedIdentifiers()
+            + useMultiResults()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeServerSessionStateController {
+            - listeners : List<WeakReference<SessionStateChangesListener>>
+            + addSessionStateChangesListener()
+            + getSessionStateChanges()
+            + removeSessionStateChangesListener()
+            + setSessionStateChanges()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeServerSessionStateController.NativeServerSessionStateChanges {
+            - sessionStateChanges : List<SessionStateChange>
+            + NativeServerSessionStateChanges()
+            + getSessionStateChangesList()
+            + init()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeSocketConnection {
+            + connect()
+            + performTlsHandshake()
+            + performTlsHandshake()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NativeUtils {
+            {static} + decodeMysqlThreeByteInteger()
+            {static} + decodeMysqlThreeByteInteger()
+            {static} + encodeMysqlThreeByteInteger()
+            {static} + encodeMysqlThreeByteInteger()
+            {static} + getBinaryEncodedLength()
+            - NativeUtils()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NullValueEncoder {
+            + encodeAsBinary()
+            + getBytes()
+            + getString()
+            + init()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.NumberValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.OffsetDateTimeValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.OffsetTimeValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.PacketSplitter {
+            - currentPacketLen : int
+            - offset : int
+            - totalSize : int
+            + PacketSplitter()
+            + getOffset()
+            + getPacketLen()
+            + nextPacket()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ReaderValueEncoder {
+            + encodeAsBinary()
+            + getBytes()
+            + getString()
+            # readBytes()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ResultsetFactory {
+            - concurrency : Concurrency
+            - type : Type
+            + ResultsetFactory()
+            + createFromProtocolEntity()
+            + getResultSetConcurrency()
+            + getResultSetType()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ResultsetRowReader {
+            # propertySet : PropertySet
+            # protocol : NativeProtocol
+            # useBufferRowSizeThreshold : RuntimeProperty<Integer>
+            + ResultsetRowReader()
+            + read()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.SimplePacketReader {
+            # maxAllowedPacket : RuntimeProperty<Integer>
+            # socketConnection : SocketConnection
+            ~ lastHeader : NativePacketHeader
+            ~ lastMessage : NativePacketPayload
+            - readPacketSequence : byte
+            + SimplePacketReader()
+            + getMessageSequence()
+            + probeHeader()
+            + probeMessage()
+            + readHeader()
+            + readMessage()
+            + resetMessageSequence()
+            - readHeaderLocal()
+            - readMessageLocal()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.SimplePacketSender {
+            - outputStream : BufferedOutputStream
+            + SimplePacketSender()
+            + send()
+            + undecorate()
+            + undecorateAll()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.SqlDateValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.SqlTimeValueEncoder {
+            - tdf : SimpleDateFormat
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.SqlTimestampValueEncoder {
+            - tsdf : SimpleDateFormat
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.StringValueEncoder {
+            - charsetEncoder : CharsetEncoder
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getBytes()
+            + getString()
+            + init()
+            - isEscapeNeededForString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.TextResultsetReader {
+            # protocol : NativeProtocol
+            + TextResultsetReader()
+            + read()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.TextRowFactory {
+            + TextRowFactory()
+            + canReuseRowPacketForBufferRow()
+            + createFromMessage()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.TimeTrackingPacketReader {
+            - lastPacketReceivedTimeMs : long
+            - packetReader : MessageReader<NativePacketHeader, NativePacketPayload>
+            + TimeTrackingPacketReader()
+            + getLastPacketReceivedTime()
+            + getMessageSequence()
+            + probeHeader()
+            + probeMessage()
+            + readHeader()
+            + readMessage()
+            + resetMessageSequence()
+            + undecorate()
+            + undecorateAll()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.TimeTrackingPacketSender {
+            - lastPacketSentTime : long
+            - packetSender : MessageSender<NativePacketPayload>
+            - previousPacketSentTime : long
+            + TimeTrackingPacketSender()
+            + getLastPacketSentTime()
+            + getPreviousPacketSentTime()
+            + send()
+            + undecorate()
+            + undecorateAll()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.TracingPacketReader {
+            {static} - MAX_PACKET_DUMP_LENGTH : int
+            - log : Log
+            - packetReader : MessageReader<NativePacketHeader, NativePacketPayload>
+            + TracingPacketReader()
+            + getMessageSequence()
+            + probeHeader()
+            + probeMessage()
+            + readHeader()
+            + readMessage()
+            + resetMessageSequence()
+            + undecorate()
+            + undecorateAll()
+            - traceHeader()
+            - traceMessage()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.TracingPacketSender {
+            - host : String
+            - log : Log
+            - packetSender : MessageSender<NativePacketPayload>
+            - serverThreadId : long
+            + TracingPacketSender()
+            + send()
+            + setServerThreadId()
+            + undecorate()
+            + undecorateAll()
+            - logPacket()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.UtilCalendarValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.UtilDateValueEncoder {
+            - tsdf : SimpleDateFormat
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      namespace a {
+        class com.mysql.cj.protocol.a.ZonedDateTimeValueEncoder {
+            + encodeAsBinary()
+            + encodeAsQueryAttribute()
+            + getString()
+        }
+      }
+    }
+  }
+  
+
+  com.mysql.cj.protocol.a.AbstractRowFactory .up.|> com.mysql.cj.protocol.ProtocolEntityFactory
+  com.mysql.cj.protocol.a.AbstractValueEncoder .up.|> com.mysql.cj.protocol.ValueEncoder
+  com.mysql.cj.protocol.a.BinaryResultsetReader .up.|> com.mysql.cj.protocol.ProtocolEntityReader
+  com.mysql.cj.protocol.a.BinaryRowFactory .up.|> com.mysql.cj.protocol.ProtocolEntityFactory
+  com.mysql.cj.protocol.a.BinaryRowFactory -up-|> com.mysql.cj.protocol.a.AbstractRowFactory
+  com.mysql.cj.protocol.a.BlobValueEncoder -up-|> com.mysql.cj.protocol.a.InputStreamValueEncoder
+  com.mysql.cj.protocol.a.BooleanValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.ByteArrayValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.ClobValueEncoder -up-|> com.mysql.cj.protocol.a.ReaderValueEncoder
+  com.mysql.cj.protocol.a.ColumnDefinitionFactory .up.|> com.mysql.cj.protocol.ProtocolEntityFactory
+  com.mysql.cj.protocol.a.ColumnDefinitionReader .up.|> com.mysql.cj.protocol.ProtocolEntityReader
+  com.mysql.cj.protocol.a.CompressedInputStream -up-|> java.io.InputStream
+  com.mysql.cj.protocol.a.CompressedPacketSender .up.|> com.mysql.cj.protocol.MessageSender
+  com.mysql.cj.protocol.a.DebugBufferingPacketReader .up.|> com.mysql.cj.protocol.MessageReader
+  com.mysql.cj.protocol.a.DebugBufferingPacketSender .up.|> com.mysql.cj.protocol.MessageSender
+  com.mysql.cj.protocol.a.DurationValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.InputStreamValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.InstantValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.LocalDateTimeValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.LocalDateValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.LocalTimeValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.MergingColumnDefinitionFactory .up.|> com.mysql.cj.protocol.ProtocolEntityFactory
+  com.mysql.cj.protocol.a.MergingColumnDefinitionFactory -up-|> com.mysql.cj.protocol.a.ColumnDefinitionFactory
+  com.mysql.cj.protocol.a.MultiPacketReader .up.|> com.mysql.cj.protocol.MessageReader
+  com.mysql.cj.protocol.a.MysqlBinaryValueDecoder .up.|> com.mysql.cj.protocol.ValueDecoder
+  com.mysql.cj.protocol.a.MysqlTextValueDecoder .up.|> com.mysql.cj.protocol.ValueDecoder
+  com.mysql.cj.protocol.a.NativeAuthenticationProvider .up.|> com.mysql.cj.protocol.AuthenticationProvider
+  com.mysql.cj.protocol.a.NativeCapabilities .up.|> com.mysql.cj.protocol.ServerCapabilities
+  com.mysql.cj.protocol.a.NativeConstants +-down- com.mysql.cj.protocol.a.NativeConstants.IntegerDataType
+  com.mysql.cj.protocol.a.NativeConstants +-down- com.mysql.cj.protocol.a.NativeConstants.StringLengthDataType
+  com.mysql.cj.protocol.a.NativeConstants +-down- com.mysql.cj.protocol.a.NativeConstants.StringSelfDataType
+  com.mysql.cj.protocol.a.NativeMessageBuilder .up.|> com.mysql.cj.MessageBuilder
+  com.mysql.cj.protocol.a.NativePacketHeader .up.|> com.mysql.cj.protocol.MessageHeader
+  com.mysql.cj.protocol.a.NativePacketPayload .up.|> com.mysql.cj.protocol.Message
+  com.mysql.cj.protocol.a.NativeProtocol .up.|> com.mysql.cj.conf.RuntimeProperty.RuntimePropertyListener
+  com.mysql.cj.protocol.a.NativeProtocol -up-|> com.mysql.cj.protocol.AbstractProtocol
+  com.mysql.cj.protocol.a.NativeServerSession .up.|> com.mysql.cj.protocol.ServerSession
+  com.mysql.cj.protocol.a.NativeServerSessionStateController .up.|> com.mysql.cj.protocol.ServerSessionStateController
+  com.mysql.cj.protocol.a.NativeServerSessionStateController o-- com.mysql.cj.protocol.a.NativeServerSessionStateController.NativeServerSessionStateChanges : sessionStateChanges
+  com.mysql.cj.protocol.a.NativeServerSessionStateController +-down- com.mysql.cj.protocol.a.NativeServerSessionStateController.NativeServerSessionStateChanges
+  com.mysql.cj.protocol.a.NativeServerSessionStateController.NativeServerSessionStateChanges .up.|> com.mysql.cj.protocol.ServerSessionStateController.ServerSessionStateChanges
+  com.mysql.cj.protocol.a.NativeSocketConnection .up.|> com.mysql.cj.protocol.SocketConnection
+  com.mysql.cj.protocol.a.NativeSocketConnection -up-|> com.mysql.cj.protocol.AbstractSocketConnection
+  com.mysql.cj.protocol.a.NullValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.NumberValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.OffsetDateTimeValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.OffsetTimeValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.ReaderValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.ResultsetFactory .up.|> com.mysql.cj.protocol.ProtocolEntityFactory
+  com.mysql.cj.protocol.a.ResultsetRowReader .up.|> com.mysql.cj.protocol.ProtocolEntityReader
+  com.mysql.cj.protocol.a.SimplePacketReader .up.|> com.mysql.cj.protocol.MessageReader
+  com.mysql.cj.protocol.a.SimplePacketSender .up.|> com.mysql.cj.protocol.MessageSender
+  com.mysql.cj.protocol.a.SqlDateValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.SqlTimeValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.SqlTimestampValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.StringValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.TextResultsetReader .up.|> com.mysql.cj.protocol.ProtocolEntityReader
+  com.mysql.cj.protocol.a.TextRowFactory .up.|> com.mysql.cj.protocol.ProtocolEntityFactory
+  com.mysql.cj.protocol.a.TextRowFactory -up-|> com.mysql.cj.protocol.a.AbstractRowFactory
+  com.mysql.cj.protocol.a.TimeTrackingPacketReader .up.|> com.mysql.cj.protocol.MessageReader
+  com.mysql.cj.protocol.a.TimeTrackingPacketReader .up.|> com.mysql.cj.protocol.PacketReceivedTimeHolder
+  com.mysql.cj.protocol.a.TimeTrackingPacketSender .up.|> com.mysql.cj.protocol.MessageSender
+  com.mysql.cj.protocol.a.TimeTrackingPacketSender .up.|> com.mysql.cj.protocol.PacketSentTimeHolder
+  com.mysql.cj.protocol.a.TracingPacketReader .up.|> com.mysql.cj.protocol.MessageReader
+  com.mysql.cj.protocol.a.TracingPacketSender .up.|> com.mysql.cj.protocol.MessageSender
+  com.mysql.cj.protocol.a.UtilCalendarValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.UtilDateValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+  com.mysql.cj.protocol.a.ZonedDateTimeValueEncoder -up-|> com.mysql.cj.protocol.a.AbstractValueEncoder
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

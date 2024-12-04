@@ -1,0 +1,378 @@
+@startuml
+
+title __PROTOCOL's Class Diagram__\n
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      abstract class com.mysql.cj.protocol.AbstractProtocol {
+          # authProvider : AuthenticationProvider<M>
+          # exceptionInterceptor : ExceptionInterceptor
+          # log : Log
+          # messageBuilder : MessageBuilder<M>
+          # packetDebugRingBuffer : LinkedList<StringBuilder>
+          # propertySet : PropertySet
+          # queryTimingUnits : String
+          # session : Session
+          # socketConnection : SocketConnection
+          # transactionManager : TransactionEventHandler
+          # useNanosForElapsedTime : boolean
+          - listeners : CopyOnWriteArrayList<WeakReference<ProtocolEventListener>>
+          - packetReceivedTimeHolder : PacketReceivedTimeHolder
+          - packetSentTimeHolder : PacketSentTimeHolder
+          + addListener()
+          + getAuthenticationProvider()
+          + getExceptionInterceptor()
+          + getMessageBuilder()
+          + getPacketReceivedTimeHolder()
+          + getPacketSentTimeHolder()
+          + getPropertySet()
+          + getQueryTimingUnits()
+          + getSocketConnection()
+          + init()
+          + invokeListeners()
+          + removeListener()
+          + reset()
+          + setPacketReceivedTimeHolder()
+          + setPacketSentTimeHolder()
+          + setPropertySet()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      abstract class com.mysql.cj.protocol.AbstractSocketConnection {
+          # exceptionInterceptor : ExceptionInterceptor
+          # host : String
+          # mysqlInput : FullReadInputStream
+          # mysqlOutput : BufferedOutputStream
+          # mysqlSocket : Socket
+          # port : int
+          # propertySet : PropertySet
+          # socketFactory : SocketFactory
+          + forceClose()
+          + getExceptionInterceptor()
+          + getHost()
+          + getMysqlInput()
+          + getMysqlOutput()
+          + getMysqlSocket()
+          + getNetworkResources()
+          + getPort()
+          + getPropertySet()
+          + getSocketFactory()
+          + isSSLEstablished()
+          + setMysqlInput()
+          + setSocketFactory()
+          # createSocketFactory()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.ExportControlled {
+          {static} - ALLOWED_CIPHERS : List<String>
+          {static} - APPROVED_TLS_PROTOCOLS : String[]
+          {static} - KNOWN_TLS_PROTOCOLS : String[]
+          {static} - SSL_CONTEXT_PROTOCOL : String
+          {static} - TLS_SETTINGS_RESOURCE : String
+          {static} - TLSv1 : String
+          {static} - TLSv1_1 : String
+          {static} - TLSv1_2 : String
+          {static} - TLSv1_3 : String
+          {static} - UNACCEPTABLE_CIPHER_SUBSTR : List<String>
+          {static} + checkValidProtocols()
+          {static} + decodeRSAPrivateKey()
+          {static} + decodeRSAPublicKey()
+          {static} + enabled()
+          {static} + encryptWithRSAPublicKey()
+          {static} + encryptWithRSAPublicKey()
+          {static} + isSSLEstablished()
+          {static} + performTlsHandshake()
+          {static} + sign()
+          - ExportControlled()
+          {static} - getAllowedCiphers()
+          {static} - getAllowedProtocols()
+          {static} - getKeyStoreConfigurations()
+          {static} - getTrustStoreConfigurations()
+          {static} - getValidProtocols()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.ExportControlled.HostnameChecker {
+          - hostname : String
+          + HostnameChecker()
+          + match()
+          - verifyHostName()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.ExportControlled.KeyStoreConfigurations {
+          + keyStorePassword : String
+          + keyStoreType : String
+          + keyStoreUrl : String
+          + KeyStoreConfigurations()
+          + KeyStoreConfigurations()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.ExportControlled.SslContextBuilder {
+          - KeyManagerFactoryProvider : String
+          - exceptionInterceptor : ExceptionInterceptor
+          - fallbackToSystemTrustStore : boolean
+          - fipsCompliantJsse : boolean
+          - keyStoreProvider : String
+          - sslContextProvider : String
+          - trustManagerFactoryProvider : String
+          - verifyServerCertificate : boolean
+          + SslContextBuilder()
+          + build()
+          + setExceptionInterceptor()
+          + setFallbackToSystemTrustStore()
+          + setFipsCompliantJsse()
+          + setKeyManagerFactoryProvider()
+          + setKeyStoreProvider()
+          + setKeyStoreSettings()
+          + setSslContextProvider()
+          + setTrustManagerFactoryProvider()
+          + setTrustStoreSettings()
+          + setVerifyServerCertificate()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.ExportControlled.X509TrustManagerWrapper {
+          {static} - CERT_FACTORY_TYPE : String
+          {static} - CERT_PATH_VALIDATOR_ALGORITHM : String
+          - certFactory : CertificateFactory
+          - certPathValidator : CertPathValidator
+          - originalTrustManager : X509TrustManager
+          - pkixParams : PKIXParameters
+          - validateServerCert : boolean
+          + checkClientTrusted()
+          + checkServerTrusted()
+          + getAcceptedIssuers()
+          ~ X509TrustManagerWrapper()
+          ~ X509TrustManagerWrapper()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.NamedPipeSocketFactory {
+          {static} - DEFAULT_TIMEOUT : int
+          - namedPipeSocket : Socket
+          + NamedPipeSocketFactory()
+          + connect()
+          + isLocallyConnected()
+          + performTlsHandshake()
+          + performTlsHandshake()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.NamedPipeSocketFactory.NamedPipeSocket {
+          - isClosed : boolean
+          - lock : Lock
+          - namedPipeFile : RandomAccessFile
+          + close()
+          + getInputStream()
+          + getOutputStream()
+          + isClosed()
+          + shutdownInput()
+          ~ NamedPipeSocket()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.NamedPipeSocketFactory.RandomAccessFileInputStream {
+          ~ raFile : RandomAccessFile
+          + available()
+          + close()
+          + read()
+          + read()
+          + read()
+          ~ RandomAccessFileInputStream()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.NamedPipeSocketFactory.RandomAccessFileOutputStream {
+          ~ raFile : RandomAccessFile
+          + close()
+          + write()
+          + write()
+          + write()
+          ~ RandomAccessFileOutputStream()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.ReadAheadInputStream {
+          # currentPosition : int
+          # doDebug : boolean
+          # endOfCurrentData : int
+          # log : Log
+          {static} - DEFAULT_BUFFER_SIZE : int
+          - buf : byte[]
+          - lock : Lock
+          - underlyingStream : InputStream
+          + ReadAheadInputStream()
+          + ReadAheadInputStream()
+          + available()
+          + close()
+          + markSupported()
+          + read()
+          + read()
+          + skip()
+          - checkClosed()
+          - fill()
+          - readFromUnderlyingStreamIfNecessary()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.Security {
+          {static} - CACHING_SHA2_DIGEST_LENGTH : int
+          {static} + scramble411()
+          {static} + scramble411()
+          {static} + scrambleCachingSha2()
+          {static} + xorString()
+          - Security()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.SocksProxySocketFactory {
+          + connect()
+          # createSocket()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.StandardSocketFactory {
+          # host : String
+          # loginTimeoutCheckTimestamp : long
+          # loginTimeoutCountdown : int
+          # port : int
+          # rawSocket : Socket
+          # socketTimeoutBackup : int
+          # sslSocket : Socket
+          + afterHandshake()
+          + beforeHandshake()
+          + connect()
+          + performTlsHandshake()
+          + performTlsHandshake()
+          # configureSocket()
+          # createSocket()
+          # getRealTimeout()
+          # resetLoginTimeCountdown()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.WatchableOutputStream {
+          - watcher : OutputStreamWatcher
+          + close()
+          + setWatcher()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      class com.mysql.cj.protocol.WatchableWriter {
+          - watcher : WriterWatcher
+          + close()
+          + setWatcher()
+      }
+    }
+  }
+  
+
+  namespace com.mysql.cj {
+    namespace protocol {
+      interface com.mysql.cj.protocol.WriterWatcher {
+          {abstract} + writerClosed()
+      }
+    }
+  }
+  
+
+  com.mysql.cj.protocol.AbstractProtocol .up.|> com.mysql.cj.protocol.Protocol
+  com.mysql.cj.protocol.AbstractProtocol .up.|> com.mysql.cj.protocol.Protocol.ProtocolEventHandler
+  com.mysql.cj.protocol.AbstractSocketConnection .up.|> com.mysql.cj.protocol.SocketConnection
+  com.mysql.cj.protocol.ExportControlled +-down- com.mysql.cj.protocol.ExportControlled.HostnameChecker
+  com.mysql.cj.protocol.ExportControlled +-down- com.mysql.cj.protocol.ExportControlled.KeyStoreConfigurations
+  com.mysql.cj.protocol.ExportControlled +-down- com.mysql.cj.protocol.ExportControlled.SslContextBuilder
+  com.mysql.cj.protocol.ExportControlled +-down- com.mysql.cj.protocol.ExportControlled.X509TrustManagerWrapper
+  com.mysql.cj.protocol.ExportControlled.SslContextBuilder o-- com.mysql.cj.protocol.ExportControlled.KeyStoreConfigurations : keyStoreSettings
+  com.mysql.cj.protocol.ExportControlled.SslContextBuilder o-- com.mysql.cj.protocol.ExportControlled.KeyStoreConfigurations : trustStoreSettings
+  com.mysql.cj.protocol.ExportControlled.X509TrustManagerWrapper .up.|> javax.net.ssl.X509TrustManager
+  com.mysql.cj.protocol.NamedPipeSocketFactory .up.|> com.mysql.cj.protocol.SocketFactory
+  com.mysql.cj.protocol.NamedPipeSocketFactory +-down- com.mysql.cj.protocol.NamedPipeSocketFactory.NamedPipeSocket
+  com.mysql.cj.protocol.NamedPipeSocketFactory +-down- com.mysql.cj.protocol.NamedPipeSocketFactory.RandomAccessFileInputStream
+  com.mysql.cj.protocol.NamedPipeSocketFactory +-down- com.mysql.cj.protocol.NamedPipeSocketFactory.RandomAccessFileOutputStream
+  com.mysql.cj.protocol.NamedPipeSocketFactory.NamedPipeSocket -up-|> java.net.Socket
+  com.mysql.cj.protocol.NamedPipeSocketFactory.RandomAccessFileInputStream -up-|> java.io.InputStream
+  com.mysql.cj.protocol.NamedPipeSocketFactory.RandomAccessFileOutputStream -up-|> java.io.OutputStream
+  com.mysql.cj.protocol.ReadAheadInputStream -up-|> java.io.InputStream
+  com.mysql.cj.protocol.SocksProxySocketFactory -up-|> com.mysql.cj.protocol.StandardSocketFactory
+  com.mysql.cj.protocol.StandardSocketFactory .up.|> com.mysql.cj.protocol.SocketFactory
+  com.mysql.cj.protocol.WatchableOutputStream .up.|> com.mysql.cj.protocol.WatchableStream
+  com.mysql.cj.protocol.WatchableOutputStream -up-|> java.io.ByteArrayOutputStream
+  com.mysql.cj.protocol.WatchableWriter -up-|> java.io.CharArrayWriter
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

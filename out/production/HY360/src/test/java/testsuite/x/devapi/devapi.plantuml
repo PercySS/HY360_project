@@ -1,0 +1,780 @@
+@startuml
+
+title __DEVAPI's Class Diagram__\n
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.AsyncQueryTest {
+          + basicAsyncQuery()
+          + insertDocs()
+          + manyFutures()
+          + manyModifications()
+          + overlappedAsyncQueries()
+          + sqlError()
+          + sqlQuery()
+          + sqlUpdate()
+          + syntaxErrorEntireResult()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.BaseCollectionTestCase {
+          # collection : Collection
+          # collectionName : String
+          + setupCollectionTest()
+          + teardownCollectionTest()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.BaseTableTestCase {
+          + setupBaseTableTest()
+          + teardownBaseTableTest()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.BindTest {
+          + bindArgsOrder()
+          + bug21798850()
+          + properExceptionUnboundParams()
+          + removeWithBind()
+          + removeWithNamedBinds()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CollectionAddTest {
+          + testAddLargeDocument()
+          + testAddNoDocs()
+          + testAddOrReplaceOne()
+          + testAddWithAssignedId()
+          + testBasicAddDoc()
+          + testBasicAddDocArray()
+          + testBasicAddMap()
+          + testBasicAddString()
+          + testBasicAddStringArray()
+          + testBug21914769()
+          + testBug92264()
+          + testBug92819()
+          + testChainedAdd()
+          + testCollectionAddArray()
+          + testCollectionAddBasic()
+          + testCollectionAddBigKeyData()
+          + testCollectionAddBigKeyDataString()
+          + testCollectionAddBigKeys()
+          + testCollectionAddManyKeys()
+          + testCollectionAddManyRecords()
+          + testCollectionAddStrings()
+          + testGetGeneratedIds()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CollectionFindTest {
+          + basicCollectionAsTable()
+          + cast()
+          + getOne()
+          + outOfRange()
+          + testBitwiseExpressions()
+          + testBug21921956()
+          + testCollModifyTabUpdateWithOverlaps()
+          + testCollRemoveTabDeleteWithOverlaps()
+          + testCollectionFindArray()
+          + testCollectionFindAsyncExt()
+          + testCollectionFindAsyncMany()
+          + testCollectionFindBasic()
+          + testCollectionFindDatatypes()
+          + testCollectionFindGroupBy()
+          + testCollectionFindInDelete()
+          + testCollectionFindInInvalid()
+          + testCollectionFindInSanity()
+          + testCollectionFindInUpdate()
+          + testCollectionFindInValidArray()
+          + testCollectionFindInValidFunction()
+          + testCollectionFindInValidMax()
+          + testCollectionFindInValidMix()
+          + testCollectionFindOverlaps()
+          + testCollectionFindOverlapsSanity()
+          + testCollectionFindOverlapsValidMix()
+          + testCollectionFindOverlapsWithExpr()
+          + testCollectionFindSkipWarning()
+          + testCollectionFindStress_002()
+          + testCollectionFindStress_003()
+          + testCollectionFindStress_004()
+          + testCollectionFindWithBind()
+          + testCollectionFindWithBitOperation()
+          + testCollectionFindWithIntervalOperation()
+          + testCollectionFindWithStringComparison()
+          + testCollectionRowLockOptions()
+          + testCollectionRowLocks()
+          + testDeprecateWhere()
+          + testDocumentProjection()
+          + testGetWarningsFromCollection()
+          + testGroupingQuery()
+          + testIlriExpressions()
+          + testIntervalExpressions()
+          + testIterable()
+          + testLimitOffset()
+          + testNumericExpressions()
+          + testOrderBy()
+          + testOverlaps()
+          + testPreparedStatements()
+          + testProjection()
+          - assertTestPreparedStatementsResult()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CollectionModifyTest {
+          + testArrayAppend()
+          + testArrayInsert()
+          + testArrayModify()
+          + testBug107510()
+          + testBug24471057()
+          + testBug27185332()
+          + testBug27226293()
+          + testBug33637993()
+          + testCollectionModifyArray()
+          + testCollectionModifyArrayAppend()
+          + testCollectionModifyArrayInsert()
+          + testCollectionModifyAsync()
+          + testCollectionModifyAsyncMany()
+          + testCollectionModifyBasic()
+          + testCollectionModifyBind()
+          + testCollectionModifyDataTypes()
+          + testCollectionModifyExpr()
+          + testCollectionModifySortLimit()
+          + testDeprecateWhere()
+          + testJsonModify()
+          + testMergePatch()
+          + testPreparedStatements()
+          + testReplace()
+          + testReplaceOne()
+          + testSet()
+          + testUnset()
+          - assertTestPreparedStatementsResult()
+          - testPreparedStatementsResetData()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CollectionRemoveTest {
+          + deleteAll()
+          + deleteSome()
+          + removeOne()
+          + testCollectionRemoveBasic()
+          + testCollectionRemoveBindComplex()
+          + testDeprecateWhere()
+          + testPreparedStatements()
+          - assertTestPreparedStatementsResult()
+          - testPreparedStatementsResetData()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CollectionTest {
+          + createArrayIndex()
+          + createIndex()
+          + getExistentCollectionWithRequireExistsShouldNotThrow()
+          + getNonExistentCollectionWithRequireExistsShouldThrow()
+          + getNonExistentCollectionWithoutRequireExistsShouldNotThrow()
+          + testArrayIndex001()
+          + testArrayIndex002()
+          + testArrayIndex003()
+          + testArrayIndex004()
+          + testArrayIndex005()
+          + testArrayIndex006()
+          + testArrayIndex007()
+          + testArrayIndex008()
+          + testArrayIndex009()
+          + testArrayIndex010()
+          + testArrayIndex011()
+          + testArrayIndex012()
+          + testArrayIndex013()
+          + testArrayIndex014()
+          + testArrayIndex015()
+          + testAsyncBind()
+          + testCollectionAddModifyRemoveAsync()
+          + testCount()
+          + testExists()
+          + testFetchOneFetchAllAsync()
+          + testGetSchema()
+          + testGetSession()
+          - validateArrayIndex()
+          - validateIndex()
+          - validateIndex()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CompressionTest {
+          - compressFreeBaseUrl : String
+          - compressFreeTestProperties : Properties
+          {static} - longData : String
+          {static} - longDataDoc : DbDoc
+          {static} - shortData : String
+          {static} - shortDataDoc : DbDoc
+          + compressionDisabled()
+          + compressionNegotiationClientSideSelectionNativelySupported()
+          + compressionNegotiationClientSideSelectionNoCommon()
+          + compressionNegotiationClientSideSelectionOtherThanNative()
+          + compressionNegotiationClientSideSelectionUnknownIds()
+          + compressionNegotiationClientSideSelectionWithAliases()
+          + compressionNegotiationServerSideRestricted()
+          + compressionThreshold()
+          + downlinkCompression()
+          + invalidCompressionOptions()
+          + setupCompressionTest()
+          + teardownCompressionTest()
+          + testBug99708()
+          + uplinkCompression()
+          + validCompressionExtensionsOption()
+          - compressionAlgorithmAgreed()
+          - isCompressionEnabled()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CompressionTest.CompressionCounters {
+          {static} - MYSQLX_BYTES_RECEIVED : String
+          {static} - MYSQLX_BYTES_RECEIVED_COMPRESSED_PAYLOAD : String
+          {static} - MYSQLX_BYTES_RECEIVED_UNCOMPRESSED_FRAME : String
+          {static} - MYSQLX_BYTES_SENT : String
+          {static} - MYSQLX_BYTES_SENT_COMPRESSED_PAYLOAD : String
+          {static} - MYSQLX_BYTES_SENT_UNCOMPRESSED_FRAME : String
+          - conn : Connection
+          - countersMap : Map<String, Long>
+          - deltasMap : Map<String, Long>
+          ~ CompressionCounters()
+          ~ downlinkCompressionUsed()
+          ~ releaseResources()
+          ~ resetCounters()
+          ~ uplinkCompressionUsed()
+          ~ usedCompression()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CompressionTest.CompressionSettings {
+          - compressionAlgorithms : String
+          - serverSupportsCompression : boolean
+          ~ CompressionSettings()
+          ~ resetCompressionSettings()
+          ~ serverSupportsCompression()
+          ~ setCompressionAlgorithms()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CompressionTest.TestInflaterInputStream {
+          {static} + instantiatedAtLeastOnce : boolean
+          + TestInflaterInputStream()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CompressionTest.TestInputStream {
+          {static} + instantiatedAtLeastOnce : boolean
+          + TestInputStream()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.CompressionTest.TestSyncFlushDeflaterOutputStream {
+          {static} + instantiatedAtLeastOnce : boolean
+          + TestSyncFlushDeflaterOutputStream()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.DevApiBaseTestCase {
+          ~ dbCharset : String
+          ~ dbCollation : String
+          ~ schema : Schema
+          ~ session : Session
+          - mysqlRunningLocally : Boolean
+          + buildString()
+          + count_data()
+          + destroyTestSession()
+          + setupTestSession()
+          {static} # assertNonSecureSession()
+          # assertPreparedStatementsCount()
+          # assertPreparedStatementsCountsAndId()
+          # assertPreparedStatementsStatusCounts()
+          {static} # assertSecureSession()
+          {static} # assertSecureSession()
+          # dropCollection()
+          # getThreadId()
+          # isMysqlRunningLocally()
+          # isPluginActive()
+          # isServerRunningOnWindows()
+          # makeParam()
+          # makeParam()
+          # makeParam()
+          # sqlUpdate()
+          # supportsTLSv1_2()
+          # supportsTestCertificates()
+          ~ getPrepDeallocateCount()
+          ~ getPrepExecuteCount()
+          ~ getPrepPrepareCount()
+          ~ getPreparedStatementExecutionsCount()
+          ~ getPreparedStatementId()
+          ~ getPreparedStatementsCount()
+          ~ getPreparedStatementsCount()
+          ~ getPreparedStatementsCount()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.Ipv6SupportTest {
+          ~ ipv6Addrs : List<String>
+          ~ testUser : String
+          + setupIpv6SupportTest()
+          + teardownIpv6SupportTest()
+          + testIpv6SupportInSession()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.MetadataTest {
+          + derivedCol()
+          + docAsTableIsJSON()
+          + example_metadata()
+          + exhaustTypes()
+          + renameCol()
+          + setupTableTest()
+          + teardownTableTest()
+          + testGetColumnInfoFromnSession()
+          + testGetColumnLabel()
+          + testGetColumnName()
+          + testGetColumnNameAndgetColumnLabel()
+          + testGetFractionalDigits()
+          + testGetLength()
+          + testGetSchemaName()
+          + testGetTableLabel()
+          + testGetTableName()
+          + testGetType()
+          + testIsNumberSigned()
+          + testIsPaddedAndisNullableAndisAutoIncrement()
+          + testIsPrimaryKeyAndisUniqueKeyAndisPartKey()
+          + testMultiSelects()
+          + testMultiSelectsAsync()
+          + testWithUnsignedData()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.ResultTest {
+          + exceptionForNonExistingColumns()
+          + setupTableTest()
+          + teardownTableTest()
+          + testDateTimeTypes()
+          + testForceBuffering()
+          + testMars()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.RowLockingTest {
+          ~ CheckFlag : int
+          {static} ~ initException : Throwable[]
+          + testFindRowLockingValid()
+          + testSelectRowLockingDeadlock()
+          + testSelectRowLockingValid()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.RowLockingTest.FindRowDeadLock {
+          - action : int
+          - condition : String
+          - lock : int
+          + run()
+          ~ FindRowDeadLock()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.RowLockingTest.FindRowLock {
+          - action : int
+          - bindVal : int
+          - condition : String
+          - lock : int
+          - shouldWait : int
+          + run()
+          ~ FindRowLock()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.RowLockingTest.MyUncaughtExceptionHandler {
+          - index : int
+          + uncaughtException()
+          ~ MyUncaughtExceptionHandler()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.RowLockingTest.SelectRowDeadLock {
+          - action : int
+          - condition : String
+          - lock : int
+          + run()
+          ~ SelectRowDeadLock()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.RowLockingTest.SelectRowLock {
+          - action : int
+          - bindVal : int
+          - condition : String
+          - lock : int
+          - shouldWait : int
+          + run()
+          ~ SelectRowLock()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.SchemaTest {
+          + setupCollectionTest()
+          + teardownCollectionTest()
+          + testBasics()
+          + testCreateCollection()
+          + testCreateCollectionWithOptions()
+          + testDropCollection()
+          + testEquals()
+          + testExists()
+          + testListCollections()
+          + testListTables()
+          + testToString()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.SecureSessionTest {
+          ~ clientKeyStorePassword : String
+          ~ clientKeyStorePath : String
+          ~ clientKeyStoreUrl : String
+          ~ sslFreeBaseUrl : String
+          ~ sslFreeTestProperties : Properties
+          ~ trustStorePassword : String
+          ~ trustStorePath : String
+          ~ trustStoreUrl : String
+          + setupSecureSessionTest()
+          + teardownSecureSessionTest()
+          + testAuthMechanisms()
+          + testBug23597281()
+          + testBug25494338()
+          + testBug26227653()
+          + testBug27629553()
+          + testFallbackToSystemKeyStore()
+          + testFallbackToSystemTrustStore()
+          + testNonSecureSession()
+          + testSecureSessionDefaultAndRequired()
+          + testSecureSessionDefaultAndRequiredWithSystemPropsPresent()
+          + testSecureSessionMissingTrustStore()
+          + testSecureSessionVerifyServerCertificate()
+          + testSecureSessionVerifyServerCertificateIdentity()
+          + testSecureSessionVerifyServerCertificateIdentityFailure()
+          + testSecureSessionVerifyServerCertificateUsingSystemProps()
+          + testTLSVersionRemoval()
+          + testTLSv1_2()
+          + testTSLConflictingOptions()
+          + testXdevapiSslConnectionOptions()
+          + testXdevapiTlsVersionsAndCiphersuites()
+          - allowsRsa()
+          - assertTlsVersion()
+          - assertUser()
+          - getHighestCommonTlsVersion()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.SessionFailoverTest {
+          - testsHost : String
+          + setupFailoverTest()
+          + testConnectionTimeout()
+          + testGetSessionForMultipleHostsWithFailover()
+          + testGetSessionForSingleHost()
+          - buildConnectionString()
+          - buildConnectionStringNoUser()
+          - testConnectionTimeout_assertFailureTimeout()
+          - testConnectionTimeout_assertFailureTimeout()
+          - testConnectionTimeout_assertSuccessTimeout()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.SessionFailoverTest.ConnectionsCounterFakeServer {
+          ~ connectionsCounter : int
+          ~ executor : ExecutorService
+          ~ serverSocket : ServerSocket
+          + call()
+          ~ ConnectionsCounterFakeServer()
+          ~ getAndResetConnectionsCounter()
+          ~ getHostPortPair()
+          ~ shutdownSilently()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.SessionTest {
+          - createdTestSchemas : List<String>
+          + basicMultipleResults()
+          + basicSessionFailoverByPriorities()
+          + basicSessionFailoverRandomSort()
+          + basicSql()
+          + createAndReuseExistingSchema()
+          + createDropSchema()
+          + createExistingSchemaError()
+          + errorOnPacketTooBig()
+          + invalidDefaultSchema()
+          + listSchemas()
+          + pooledSessionFailoverByPrioritiesAndNoPooling()
+          + pooledSessionFailoverByPrioritiesAndPooling()
+          + pooledSessionFailoverRandomSortAndNoPooling()
+          + pooledSessionFailoverRandomSortAndPooling()
+          + setupSessionTest()
+          + smartBufferMultipleResults()
+          + sqlArguments()
+          + sqlInsertAutoIncrementValue()
+          + sqlUpdate()
+          + teardownSessionTest()
+          + testBug21690043()
+          + testBug23045604()
+          + testBug23721537()
+          + testBug27652379()
+          + testBug28606708()
+          + testBug28616573()
+          + testBug97269()
+          + testBug97730()
+          + testConnectionCloseNotification()
+          + testExecAsync()
+          + testExecAsyncNegative()
+          + testFetchOneFetchAllAsync()
+          + testPooledSessions()
+          + testPreparedStatementsCleanup()
+          + testPreparedStatementsPooledConnections()
+          + testSessionAttributes()
+          + urlWithDefaultSchema()
+          + urlWithoutDefaultSchema()
+          ~ testAutoCloseableClient()
+          ~ testAutoCloseableSession()
+          - getRandomTestSchemaName()
+          - makeNoticeBytes()
+          - testPooledSessions_assertFailureTimeout()
+          - testPooledSessions_checkClientProperties()
+          - testSessionAttributes_checkClient()
+          - testSessionAttributes_checkSession()
+          - testSessionAttributes_checkSession()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.TableDeleteTest {
+          + testDelete()
+          + testPreparedStatements()
+          - assertTestPreparedStatementsResult()
+          - testPreparedStatementsResetData()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.TableInsertTest {
+          + basicInsert()
+          + jsonInsert()
+          + lastInsertId()
+          + testExprInInsert()
+          + testGetAutoIncrementValue()
+          + testGetAutoIncrementValueAsync()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.TableSelectTest {
+          + allColumns()
+          + basicQuery()
+          + basicViewQuery()
+          + countAllColumns()
+          + testBug22038729()
+          + testBug22931277()
+          + testBug22931433()
+          + testBug22988922()
+          + testBug31667405()
+          + testComplexQuery()
+          + testOrderBy()
+          + testPreparedStatements()
+          + testTableRowLockOptions()
+          + testTableRowLocks()
+          - assertTestPreparedStatementsResult()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.TableTest {
+          + tableBasics()
+          + testAsyncBind()
+          + testBug25650912()
+          + testCount()
+          + viewBasics()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.TableUpdateTest {
+          + testPreparedStatements()
+          + testUpdates()
+          - assertTestPreparedStatementsResult()
+          - testPreparedStatementsResetData()
+      }
+    }
+  }
+  
+
+  namespace testsuite {
+    namespace x.devapi {
+      class testsuite.x.devapi.TransactionTest {
+          # collection : Collection
+          + basicCommit()
+          + basicRollback()
+          + basicSavepoint()
+          + setupCollectionTest()
+          + teardownCollectionTest()
+      }
+    }
+  }
+  
+
+  testsuite.x.devapi.CompressionTest o-- testsuite.x.devapi.CompressionTest.CompressionSettings : compressionSettings
+  testsuite.x.devapi.CompressionTest o-- testsuite.x.devapi.CompressionTest.CompressionCounters : counters
+  testsuite.x.devapi.CompressionTest +-down- testsuite.x.devapi.CompressionTest.CompressionCounters
+  testsuite.x.devapi.CompressionTest +-down- testsuite.x.devapi.CompressionTest.CompressionSettings
+  testsuite.x.devapi.CompressionTest +-down- testsuite.x.devapi.CompressionTest.TestInflaterInputStream
+  testsuite.x.devapi.CompressionTest +-down- testsuite.x.devapi.CompressionTest.TestInputStream
+  testsuite.x.devapi.CompressionTest +-down- testsuite.x.devapi.CompressionTest.TestSyncFlushDeflaterOutputStream
+  testsuite.x.devapi.CompressionTest.TestInflaterInputStream -up-|> java.util.zip.InflaterInputStream
+  testsuite.x.devapi.CompressionTest.TestInputStream -up-|> java.io.FilterInputStream
+  testsuite.x.devapi.CompressionTest.TestSyncFlushDeflaterOutputStream -up-|> com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream
+  testsuite.x.devapi.RowLockingTest +-down- testsuite.x.devapi.RowLockingTest.FindRowDeadLock
+  testsuite.x.devapi.RowLockingTest +-down- testsuite.x.devapi.RowLockingTest.FindRowLock
+  testsuite.x.devapi.RowLockingTest +-down- testsuite.x.devapi.RowLockingTest.MyUncaughtExceptionHandler
+  testsuite.x.devapi.RowLockingTest +-down- testsuite.x.devapi.RowLockingTest.SelectRowDeadLock
+  testsuite.x.devapi.RowLockingTest +-down- testsuite.x.devapi.RowLockingTest.SelectRowLock
+  testsuite.x.devapi.RowLockingTest.MyUncaughtExceptionHandler .up.|> java.lang.Thread.UncaughtExceptionHandler
+  testsuite.x.devapi.SessionFailoverTest +-down- testsuite.x.devapi.SessionFailoverTest.ConnectionsCounterFakeServer
+  testsuite.x.devapi.SessionFailoverTest.ConnectionsCounterFakeServer .up.|> java.util.concurrent.Callable
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

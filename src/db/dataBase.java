@@ -52,14 +52,14 @@ public class dataBase {
             }
             Statement stm = connection.createStatement();
             ResultSet rs = stm.executeQuery(query);
-            System.out.println("Database got");
+            System.out.println("Got from DB");
             return rs;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void deleteDb() {
+    public static void dropDb() {
         update("DROP DATABASE IF EXISTS agency_db");
     }
 
@@ -78,7 +78,9 @@ public class dataBase {
                 "Date DATE," +
                 "Time TIME," +
                 "Type VARCHAR(255)," +
-                "Capacity INT" +
+                "Capacity INT," +
+                "tReg INT," +
+                "tVIP INT" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS customers (" +
@@ -93,10 +95,10 @@ public class dataBase {
                 "BookingDate DATE," +
                 "CustomerId INT," +
                 "EventId INT," +
-                "TicketsReg INT," +
-                "TicketsVIP INT," +
-                "FOREIGN KEY (CustomerId) REFERENCES customers(CustomerId)," +
-                "FOREIGN KEY (EventId) REFERENCES events(EventId)" +
+                "tReg INT," +
+                "tVIP INT," +
+                "FOREIGN KEY (CustomerId) REFERENCES customers(CustomerId) ON DELETE CASCADE," +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId) ON DELETE CASCADE" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS ticketsVIP (" +
@@ -105,8 +107,8 @@ public class dataBase {
                 "Availability INT," +
                 "EventId INT," +
                 "BookingId INT," +
-                "FOREIGN KEY (EventId) REFERENCES events(EventId)," +
-                "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId)" +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId) ON DELETE CASCADE," +
+                "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId) ON DELETE CASCADE" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS ticketsRegular (" +
@@ -115,9 +117,19 @@ public class dataBase {
                 "Availability INT," +
                 "EventId INT," +
                 "BookingId INT," +
-                "FOREIGN KEY (EventId) REFERENCES events(EventId)," +
-                "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId)" +
+                "FOREIGN KEY (EventId) REFERENCES events(EventId) ON DELETE CASCADE," +
+                "FOREIGN KEY (BookingId) REFERENCES bookings(BookingId) ON DELETE CASCADE" +
                 ")");
     }
+
+    public static void dropTable(String tableName) {
+        update("DROP TABLE IF EXISTS " + tableName);
+    }
+
+    public static void cleanTable(String tableName) {
+        update("DELETE * FROM " + tableName);
+    }
+
+
 
 }

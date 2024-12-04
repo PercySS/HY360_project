@@ -6,59 +6,28 @@ import java.util.Date;
 import static db.dataBase.*;
 
 public class Booking {
-    private int BookingId;
-    private Date BookingDate;
-    private int CustomerId;
-    private int EventId;
 
-    // ==== Constructors ====
-    public Booking(int BookingId, Date BookingDate, int CustomerId, int EventId) {
-        this.BookingId = BookingId;
-        this.BookingDate = BookingDate;
-        this.CustomerId = CustomerId;
-        this.EventId = EventId;
-    }
+    public static void addBooking(Date BookingDate, int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
+        for (int i = 0; i < tReg; i++) {
+            // check if there are tReg tickets available for event EventId
+            ResultSet rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND Availability = 1");
 
-    // ==== Setters ====
-
-    public void setBookingId(int BookingId) {
-        this.BookingId = BookingId;
-    }
-
-    public void setBookingDate(Date BookingDate) {
-        this.BookingDate = BookingDate;
-    }
-
-    public void setCustomerId(int CustomerId) {
-        this.CustomerId = CustomerId;
-    }
-
-    public void setEventId(int EventId) {
-        this.EventId = EventId;
-    }
-
-    // ==== Getters ====
-    public int getBookingId() {
-        return BookingId;
-    }
-
-    public Date getBookingDate() {
-        return BookingDate;
-    }
-
-    public int getCustomerId() {
-        return CustomerId;
-    }
-
-    public int getEventId() {
-        return EventId;
-    }
-
-    public static void addBooking(int BookingId, Date BookingDate, int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
-        update("INSERT INTO bookings VALUES (" + BookingId + ", '" + BookingDate + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ")");
+        }
+        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP) VALUES ('" + BookingDate + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ")");
     }
 
     public static void deleteBooking(Connection conn, int BookingId) throws SQLException {
+        // make all tickets included in this booking available again
+        ResultSet rs = get("SELECT * FROM ticketsRegular WHERE BookingId = " + BookingId);
+        while (rs.next()) {
+            update("UPDATE ticketsRegular SET Availability = 1, BookingId = NULL WHERE TicketId = " + rs.getInt("TicketId"));
+        }
+
+        rs = get("SELECT * FROM ticketsVIP WHERE BookingId = " + BookingId);
+        while (rs.next()) {
+            update("UPDATE ticketsVIP SET Availability = 1, BookingId = NULL WHERE TicketId = " + rs.getInt("TicketId"));
+        }
+
         update("DELETE FROM bookings WHERE BookingId = " + BookingId);
     }
 
