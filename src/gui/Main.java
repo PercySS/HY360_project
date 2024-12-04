@@ -10,6 +10,7 @@ import static classes.Customer.*;
 import static classes.Ticket.*;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static db.dataBase.*;
@@ -21,24 +22,73 @@ public class Main {
         createDb();
         initDb();
 
-        // make 2 customers
-        addCustomer("John Doe", "kati@gmail.com", "1234");
-        addCustomer("Jane Doe", "peripou@gmail.com", "5678");
-
-        // make an event with 10 capacity
-        addEvent("Event 1", java.sql.Date.valueOf("2021-12-12"), java.sql.Time.valueOf("12:00:00"), "Concert", 100, 60, 40);
-
-        // make a booking for customer 1 for event 1 with 5 regular tickets and 2 VIP tickets
-        addBooking(java.sql.Date.valueOf("2021-12-12"), 1, 1, 5, 2);
-
-        // make a booking for customer 2 for event 1 with 3 regular tickets and 1 VIP ticket
-        addBooking(java.sql.Date.valueOf("2021-12-12"), 2, 1, 3, 1);
-
         // wait for user to press something and then delete the event
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Press any key to delete the event");
-        scanner.nextLine();
-        deleteEvent(1);
+        scanner.nextInt();
+
+
+        do {
+            System.out.println("Choose an option:");
+            System.out.println("0. Exit");
+            System.out.println("1. Add event");
+            System.out.println("2. Delete event");
+            System.out.println("3. Add customer");
+            System.out.println("4. Delete customer");
+            System.out.println("5. Add booking");
+            System.out.println("6. Delete booking");
+            System.out.println("7. Available-Booked tickets for event");
+            System.out.println("8. Income for event");
+            System.out.println("9. Most popular event based on bookings");
+            System.out.println("10. Most profitable event in a certain time period");
+            System.out.println("11. Show bookings per time period");
+            System.out.println("12. Show profits from VIP and Regular tickets per event or all events");
+
+
+            switch (scanner.next()) {
+                case "0":
+                    System.out.println("Exiting...");
+                    break;
+                case "1":
+                    System.out.println("Add event");
+                    break;
+                case "2":
+                    System.out.println("Delete event");
+                    break;
+                case "3":
+                    System.out.println("Add customer");
+                    break;
+                case "4":
+                    System.out.println("Delete customer");
+                    break;
+                case "5":
+                    System.out.println("Add booking");
+                    break;
+                case "6":
+                    System.out.println("Delete booking");
+                    break;
+                case "7":
+                    System.out.println("Available-Booked tickets for event");
+                    break;
+                case "8":
+                    System.out.println("Income for event");
+                    break;
+                case "9":
+                    System.out.println("Most popular event based on bookings");
+                    break;
+                case "10":
+                    System.out.println("Most profitable event in a certain time period");
+                    break;
+                case "11":
+                    System.out.println("Show bookings per time period");
+                    break;
+                case "12":
+                    System.out.println("Show profits from VIP and Regular tickets per event or all events ");
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    break;
+            }
+        } while (scanner.nextInt() != 0);
 
     }
 }

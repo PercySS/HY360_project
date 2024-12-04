@@ -10,6 +10,13 @@ public class Customer {
 
     public static void deleteCustomer(Connection conn, int CustomerId) throws SQLException {
         update("DELETE FROM customers WHERE CustomerId = " + CustomerId);
+
+        // making all tickets from this customer's bookings available again
+        ResultSet rs = get("SELECT * FROM bookings WHERE CustomerId = " + CustomerId);
+        while (rs.next()) {
+            Booking.deleteBooking(conn, rs.getInt("BookingId"));
+        }
+
     }
 
 

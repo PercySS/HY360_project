@@ -5,11 +5,11 @@ import static db.dataBase.*;
 
 public class Ticket {
     public static void addTicketVIP(float Price, int Availability, int EventId) throws SQLException {
-        update("INSERT INTO ticketsVIP (Price, Availability, EventId, BookingId) VALUES (" + Price + ", " + Availability + ", " + EventId + ", NULL)");
+        update("INSERT INTO ticketsVIP (Price, Availability, EventId, BookingId, Type) VALUES (" + Price + ", " + Availability + ", " + EventId + ", NULL, 'VIP')");
     }
 
     public static void addTicketRegular(float Price, int Availability, int EventId) throws SQLException {
-        update("INSERT INTO ticketsRegular (Price, Availability, EventId, BookingId) VALUES (" + Price + ", " + Availability + ", " + EventId + ", NULL)");
+        update("INSERT INTO ticketsRegular (Price, Availability, EventId, BookingId, Type) VALUES (" + Price + ", " + Availability + ", " + EventId + ", NULL, 'Regular')");
     }
 
     public static void deleteTicketVIP(int TicketId) throws SQLException {

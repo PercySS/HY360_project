@@ -8,12 +8,12 @@ import static db.dataBase.*;
 public class Booking {
 
     public static void addBooking(Date BookingDate, int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
-        for (int i = 0; i < tReg; i++) {
-            // check if there are tReg tickets available for event EventId
-            ResultSet rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND Availability = 1");
+        // check if there are enough tickets available
+        float cost = 0;
+        // TODO: check if the event is in the past
+        // TODO: check if there are enough tickets available
 
-        }
-        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP) VALUES ('" + BookingDate + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ")");
+        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP, Cost) VALUES ('" + BookingDate + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ", " + cost + ")");
     }
 
     public static void deleteBooking(Connection conn, int BookingId) throws SQLException {

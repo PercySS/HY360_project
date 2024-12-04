@@ -8,6 +8,7 @@ import static db.dataBase.*;
 public class Event {
 
     public static void addEvent(String Name, Date Date, Time Time, String Type, int Capacity, int tReg, int tVIP) throws SQLException {
+        // TODO: check if the date is in the past
         int generatedId = -1;
         ResultSet rs;
         // I use my update to insert the data into the database from the db.database class

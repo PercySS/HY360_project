@@ -97,12 +97,14 @@ public class dataBase {
                 "EventId INT," +
                 "tReg INT," +
                 "tVIP INT," +
+                "Cost DEC(10, 2)," +
                 "FOREIGN KEY (CustomerId) REFERENCES customers(CustomerId) ON DELETE CASCADE," +
                 "FOREIGN KEY (EventId) REFERENCES events(EventId) ON DELETE CASCADE" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS ticketsVIP (" +
                 "TicketId INT AUTO_INCREMENT PRIMARY KEY," +
+                "Type VARCHAR(255)," +
                 "Price DEC(10, 2)," +
                 "Availability INT," +
                 "EventId INT," +
@@ -113,6 +115,7 @@ public class dataBase {
 
         update("CREATE TABLE IF NOT EXISTS ticketsRegular (" +
                 "TicketId INT AUTO_INCREMENT PRIMARY KEY," +
+                "Type VARCHAR(255)," +
                 "Price DEC(10, 2)," +
                 "Availability INT," +
                 "EventId INT," +
