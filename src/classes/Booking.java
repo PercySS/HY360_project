@@ -1,24 +1,82 @@
 package classes;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static db.dataBase.*;
 
 public class Booking {
 
-    public static void addBooking(Date BookingDate, int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
-        // check if there are enough tickets available
+    public static boolean addBooking(int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
+        ResultSet rs;
+        StringBuilder made = new StringBuilder();
         float cost = 0;
-        // TODO: check if the event is in the past
-        // TODO: check if there are enough tickets available
+        made.append("Booking not created: ");
 
-        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP, Cost) VALUES ('" + BookingDate + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ", " + cost + ")");
+        // check if the customer exists
+        rs = get("SELECT * FROM customers WHERE CustomerId = " + CustomerId);
+        if (!rs.next()) {
+            System.out.println(made.append("Customer does not exist"));
+            return false;
+        }
+
+        // check if the event exists
+        rs = get("SELECT * FROM events WHERE EventId = " + EventId);
+        if (!rs.next()) {
+            System.out.println(made.append("Event does not exist"));
+            return false;
+        }
+
+        // check if there are enough tickets available
+        // go into the tickets vip/regular and based on the eventid check for null bookingid if i have enough ticketts make the booking
+        rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+        if (rs.getFetchSize() < tReg) {
+            System.out.println(made.append("Not enough Regular tickets available"));
+            return false;
+        }
+
+        rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+        if (rs.getFetchSize() < tVIP) {
+            System.out.println(made.append("Not enough VIP tickets available"));
+            return false;
+        }
+        // make the booking
+        rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+        for (int i = 0; i < tReg; i++) {
+            rs.next();
+            update("UPDATE ticketsRegular SET Availability = 0, BookingId = " + rs.getInt("TicketId") + " WHERE TicketId = " + rs.getInt("TicketId"));
+            cost += rs.getFloat("Price");
+        }
+
+        rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+        for (int i = 0; i < tVIP; i++) {
+            rs.next();
+            update("UPDATE ticketsVIP SET Availability = 0, BookingId = " + rs.getInt("TicketId") + " WHERE TicketId = " + rs.getInt("TicketId"));
+            cost += rs.getFloat("Price");
+        }
+
+        // calculate the cost based on the tickets price column
+
+        made.setLength(0);
+        made.append("Booking created: ");
+
+
+
+        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP, Cost) VALUES ('" + java.sql.Date.valueOf(LocalDate.now()) + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ", " + cost + ")");
+        return true;
     }
 
-    public static void deleteBooking(Connection conn, int BookingId) throws SQLException {
+    public static boolean deleteBooking(int BookingId) throws SQLException {
+        // check if the booking exists
+        ResultSet rs = get("SELECT * FROM bookings WHERE BookingId = " + BookingId);
+        if (!rs.next()) {
+            System.out.println("Booking does not exist");
+            return false;
+        }
+
         // make all tickets included in this booking available again
-        ResultSet rs = get("SELECT * FROM ticketsRegular WHERE BookingId = " + BookingId);
+        rs = get("SELECT * FROM ticketsRegular WHERE BookingId = " + BookingId);
         while (rs.next()) {
             update("UPDATE ticketsRegular SET Availability = 1, BookingId = NULL WHERE TicketId = " + rs.getInt("TicketId"));
         }
@@ -29,6 +87,7 @@ public class Booking {
         }
 
         update("DELETE FROM bookings WHERE BookingId = " + BookingId);
+        return true;
     }
 
 

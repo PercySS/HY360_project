@@ -80,7 +80,8 @@ public class dataBase {
                 "Type VARCHAR(255)," +
                 "Capacity INT," +
                 "tReg INT," +
-                "tVIP INT" +
+                "tVIP INT," +
+                "Price DEC(10, 2)" +
                 ")");
 
         update("CREATE TABLE IF NOT EXISTS customers (" +
