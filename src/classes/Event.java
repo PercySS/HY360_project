@@ -1,5 +1,6 @@
 package classes;
 
+import javax.swing.*;
 import java.sql.*;
 
 import static classes.Ticket.*;
@@ -26,20 +27,23 @@ public class Event {
 
         // check for valid time
         if (Time.before(java.sql.Time.valueOf("00:00:00")) || Time.after(java.sql.Time.valueOf("23:59:59"))) {
-            System.out.println(made.append("Invalid Time"));
+            made.append("Invalid Time");
+            JOptionPane.showMessageDialog(null, made, "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // check if there are enough tickets available
         if (tReg + tVIP != Capacity) {
-            System.out.println(made.append("Invalid number of tickets Regular tickets and VIP tickets must be equal to capacity"));
+            made.append("Invalid number of tickets Regular tickets and VIP tickets must be equal to capacity");
+            JOptionPane.showMessageDialog(null, made, "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // check if the event is already in the database
         rs = get("SELECT * FROM events WHERE Name = '" + Name + "' AND Date = '" + Date + "' AND Time = '" + Time + "'");
         if (rs.next()) {
-            System.out.println(made.append("Event already exists"));
+            made.append("Event already exists");
+            JOptionPane.showMessageDialog(null, made, "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -62,7 +66,7 @@ public class Event {
             addTicketVIP(3*Price, 1, generatedId);
         }
 
-        System.out.println(made);
+        JOptionPane.showMessageDialog(null, made, "Event created", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
 
@@ -70,7 +74,7 @@ public class Event {
         // check if the event exists
         ResultSet rs = get("SELECT * FROM events WHERE EventId = " + EventId);
         if (!rs.next()) {
-            System.out.println("Event not found");
+            JOptionPane.showMessageDialog(null, "Event not found", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         // reduce the tReg and tVIP tickets from the bookings
@@ -92,7 +96,7 @@ public class Event {
 
         update("DELETE FROM events WHERE EventId = " + EventId);
 
-        System.out.println("Event deleted");
+        JOptionPane.showMessageDialog(null, "Event deleted", "Event deleted", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
 
