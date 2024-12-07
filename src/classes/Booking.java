@@ -2,15 +2,15 @@ package classes;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 import static db.dataBase.*;
 
 public class Booking {
 
-    public static boolean addBooking(int CustomerId, int EventId, int tReg, int tVIP) throws SQLException {
+    public static boolean addBooking(int CustomerId, Date Date, int EventId, int tReg, int tVIP) throws SQLException {
         ResultSet rs;
         StringBuilder made = new StringBuilder();
+        int availableTickets = 0;
         float cost = 0;
         made.append("Booking not created: ");
 
@@ -31,15 +31,19 @@ public class Booking {
         // check if there are enough tickets available
         // go into the tickets vip/regular and based on the eventid check for null bookingid if i have enough ticketts make the booking
         rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
-        if (rs.getFetchSize() < tReg) {
-            System.out.println(made.append("Not enough Regular tickets available"));
-            return false;
+        if (rs.last()) {
+            if (rs.getRow() < tReg) {
+                System.out.println(made.append("Not enough Regular tickets available"));
+                return false;
+            }
         }
 
         rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
-        if (rs.getFetchSize() < tVIP) {
-            System.out.println(made.append("Not enough VIP tickets available"));
-            return false;
+        if (rs.last()) {
+            if (rs.getRow() < tVIP) {
+                System.out.println(made.append("Not enough VIP tickets available"));
+                return false;
+            }
         }
         // make the booking
         rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
@@ -63,7 +67,7 @@ public class Booking {
 
 
 
-        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP, Cost) VALUES ('" + java.sql.Date.valueOf(LocalDate.now()) + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ", " + cost + ")");
+        update("INSERT INTO bookings (BookingDate, CustomerId, EventId, tReg, tVIP, Cost) VALUES ('" + Date + "', " + CustomerId + ", " + EventId + ", " + tReg + ", " + tVIP + ", " + cost + ")");
         return true;
     }
 

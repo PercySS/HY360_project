@@ -93,11 +93,11 @@ public class Main {
                 case "3":
                     System.out.println("Add customer");
                     System.out.println("Enter customer name:");
-                    String customerName = scanner.next();
+                    String customerName = scanner.nextLine();
                     System.out.println("Enter customer email:");
-                    String email = scanner.next();
+                    String email = scanner.nextLine();
                     System.out.println("Enter customer credit card info:");
-                    String creditCardInfo = scanner.next();
+                    String creditCardInfo = scanner.nextLine();
                     if (addCustomer(customerName, email, creditCardInfo)) {
                         System.out.println("Customer added successfully");
                     } else {
@@ -121,8 +121,6 @@ public class Main {
                     break;
                 case "5":
                     System.out.println("Add booking");
-                    System.out.println("Enter booking date (yyyy-MM-dd):");
-                    String bookingDate = scanner.nextLine();
                     // show all customers names and ids
                     ResultSet rs1 = get("SELECT * FROM customers");
                     while (rs1.next()) {
@@ -141,10 +139,9 @@ public class Main {
                     int tReg1 = scanner.nextInt();
                     System.out.println("Enter number of VIP tickets:");
                     int tVIP1 = scanner.nextInt();
-                    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-                    java.util.Date date2 = sdf1.parse(bookingDate);
-                    java.sql.Date sqlDate1 = new java.sql.Date(date2.getTime());
-                    if (addBooking(customerID, eventID, tReg1, tVIP1)) {
+                    System.out.println("Enter booking date (yyyy-MM-dd):");
+                    String bookingDate = scanner.next();
+                    if (addBooking(customerID, Date.valueOf(bookingDate),eventID, tReg1, tVIP1)) {
                         System.out.println("Booking added successfully");
                     } else {
                         System.out.println("Booking not added");
