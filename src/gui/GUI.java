@@ -147,8 +147,8 @@ public class GUI{
                         }
 
                         try {
+                            assert date1 != null;
                             if (addEvent(strEventName, new java.sql.Date(date1.getTime()), Time.valueOf(strEventTimeText), strEventTypeText, Integer.parseInt(strEventCapacityText), Integer.parseInt(strRegularTickets), Integer.parseInt(strVIPTickets), 100)) {
-                                JOptionPane.showMessageDialog(null, "Event submitted Successfully!", "Event Status", JOptionPane.INFORMATION_MESSAGE);
                                 // clear all the text fields
                                 eventName.setText("");
                                 eventDate.setText("");
@@ -157,8 +157,6 @@ public class GUI{
                                 eventCapacity.setText("");
                                 vipTickets.setText("");
                                 regularTickets.setText("");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Event not submitted!", "Event Status", JOptionPane.ERROR_MESSAGE);
                             }
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
@@ -180,8 +178,19 @@ public class GUI{
                 rightPanel.repaint();
 
                 JLabel yourReservationsLabel = new JLabel("Events to Cancel");
-                String[] events = {"Event 1", "Event 2", "Event 3"};
-                JComboBox<String> eventList = new JComboBox<>(events);
+                JComboBox<String> eventList = new JComboBox<>();
+                String id_name;
+                try {
+                    ResultSet rs = get("SELECT * FROM events");
+                        while (rs.next()) {
+                            id_name = rs.getString("EventId") + " " + rs.getString("Name");
+                            eventList.addItem(id_name);
+                        }
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
                 JButton cancelEventButton = new JButton("Cancel Event");
                 yourReservationsLabel.setBounds(25, 10, 275, 90);
                 eventList.setBounds(25, 85, 275, 40);
@@ -198,12 +207,16 @@ public class GUI{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
-                        JLabel eventCancelLabel = new JLabel("Event Cancelled!");
-                        eventCancelLabel.setBounds(25, 170, 275, 90);
-                        eventCancelLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                        rightPanel.add(eventCancelLabel);
                         rightPanel.revalidate();
                         rightPanel.repaint();
+                        try {
+                            deleteEvent(eventList.getSelectedIndex() + 1);
+                            // refresh the jcombobox
+                            eventList.removeItemAt(eventList.getSelectedIndex());
+
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
             }
@@ -251,9 +264,16 @@ public class GUI{
                         System.out.println(emailText);
                         System.out.println(creditInfoText);
 
-//                        fullName.setText("");
-//                        email.setText("");
-//                        creditInfo.setText("");
+                        try {
+                            if (addCustomer(fullNameText, emailText, creditInfoText)) {
+                                // clear all the text fields
+                                fullName.setText("");
+                                email.setText("");
+                                creditInfo.setText("");
+                            }
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
             }
@@ -266,8 +286,18 @@ public class GUI{
                 rightPanel.removeAll();
                 rightPanel.repaint();
                 JLabel yourReservationsLabel = new JLabel("Users to Delete");
-                String[] users = {"User 1", "User 2", "User 3"};
-                JComboBox<String> userList = new JComboBox<>(users);
+                JComboBox<String> userList = new JComboBox<>();
+                String id_name;
+                try {
+                    ResultSet rs = get("SELECT * FROM customers");
+                    while (rs.next()) {
+                        id_name = rs.getString("CustomerId") + " " + rs.getString("FullName");
+                        userList.addItem(id_name);
+                    }
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 JButton deleteUserButton = new JButton("Delete User");
                 yourReservationsLabel.setBounds(25, 10, 275, 90);
                 userList.setBounds(25, 85, 275, 40);
@@ -284,10 +314,13 @@ public class GUI{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
-                        JLabel userDeleteLabel = new JLabel("User Deleted!");
-                        userDeleteLabel.setBounds(25, 170, 275, 90);
-                        userDeleteLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                        rightPanel.add(userDeleteLabel);
+                        try {
+                            deleteCustomer(userList.getSelectedIndex() + 1);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        // refresh the jcombobox
+                        userList.removeItemAt(userList.getSelectedIndex());
                         rightPanel.revalidate();
                         rightPanel.repaint();
                     }
@@ -302,11 +335,30 @@ public class GUI{
                 rightPanel.repaint();
 
                 JLabel eventNameLabel = new JLabel("Chose Event");
-                String[] events = {"Event 1", "Event 2", "Event 3"};
-                JComboBox<String> eventList = new JComboBox<>(events);
+                JComboBox<String> eventList = new JComboBox<>();
+                String id_name;
+                try {
+                    ResultSet rs = get("SELECT * FROM events");
+                    if (rs != null) {
+                        while (rs.next()) {
+                            id_name = rs.getString("EventId") + " " + rs.getString("Name");
+                            eventList.addItem(id_name);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No events available. Add an event first.");
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 JButton submitButtonForType = new JButton("Submit");
                 JLabel seatTypeLabel = new JLabel("Chose Seat Type");
                 String[] seatTypes = {"VIP", "Regular", "Student"};
+
+                eventNameLabel.setBounds(25, 10, 275, 90);
+                eventList.setBounds(25, 85, 275, 40);
+                submitButtonForType.setBounds(25, 135, 200, 50);
+
+
                 JComboBox<String> seatTypeList = new JComboBox<>(seatTypes);
                 JLabel numberOfTicketsAvailableLabel = new JLabel("Number of Tickets Available");
                 JLabel ticketsLabel = new JLabel("Number of Tickets");
@@ -315,9 +367,6 @@ public class GUI{
                 JLabel ticketsAvailableLabel = new JLabel("Tickets Available: " + ticketsAvailable);
                 JButton submitButton = new JButton("Submit");
 
-                eventNameLabel.setBounds(25, 10, 275, 90);
-                eventList.setBounds(25, 85, 275, 40);
-                submitButtonForType.setBounds(25, 135, 200, 50);
 
                submitButtonForType.addActionListener(new ActionListener() {
                    @Override

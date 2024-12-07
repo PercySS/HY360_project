@@ -90,6 +90,18 @@ public class Booking {
         return true;
     }
 
+    public static void availableTickets(int EventId, int Type) throws SQLException {
+        ResultSet rs;
+        if (Type == 1) {
+            rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+        } else {
+            rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+        }
+
+        // store the total available tickets
+        int total = rs.getFetchSize();
+    }
+
 
 
 

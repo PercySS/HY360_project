@@ -1,6 +1,9 @@
 package classes;
 
+import jdk.nashorn.internal.scripts.JO;
+
 import java.sql.*;
+import javax.swing.*;
 
 import static classes.Booking.*;
 import static db.dataBase.*;
@@ -13,26 +16,26 @@ public class Customer {
 
         // check for valid input
         if (FullName == null || email == null || CreditCardInfo == null || FullName.isEmpty() || email.isEmpty() || CreditCardInfo.isEmpty()) {
-            System.out.println(made.append("Invalid input"));
+            JOptionPane.showMessageDialog(null, made.append("Invalid input"), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // check if the customer is already in the database
         rs = get("SELECT * FROM customers WHERE FullName = '" + FullName + "' AND email = '" + email + "'");
         if (rs.next()) {
-            System.out.println(made.append("Customer already exists"));
+            JOptionPane.showMessageDialog(null, made.append("Customer already exists"), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // check if the email is valid form
         if (!email.contains("@") || !email.contains(".")) {
-            System.out.println(made.append("Invalid email"));
+            JOptionPane.showMessageDialog(null, made.append("Invalid email"), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // check if the credit card info is valid form (2 first char GR followed by 16 digits)
-        if (!CreditCardInfo.startsWith("GR") || CreditCardInfo.length() != 28) {
-            System.out.println(made.append("Invalid Credit Card Info"));
+        if (!CreditCardInfo.startsWith("GR") || CreditCardInfo.length() != 27) {
+            JOptionPane.showMessageDialog(null, made.append("Invalid Credit Card Info"), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -40,6 +43,7 @@ public class Customer {
         made.append("Customer created: ").append(FullName);
 
         update("INSERT INTO customers (FullName, email, CreditCardInfo) VALUES ('" + FullName + "', '" + email + "', '" + CreditCardInfo + "')");
+        JOptionPane.showMessageDialog(null, made, "Success", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
 
@@ -47,7 +51,7 @@ public class Customer {
         // check if the customer exists
         ResultSet rs = get("SELECT * FROM customers WHERE CustomerId = " + CustomerId);
         if (!rs.next()) {
-            System.out.println("Customer does not exist");
+            JOptionPane.showMessageDialog(null, "Customer not found", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -58,6 +62,7 @@ public class Customer {
         }
 
         update("DELETE FROM customers WHERE CustomerId = " + CustomerId);
+        JOptionPane.showMessageDialog(null, "Customer deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
 
