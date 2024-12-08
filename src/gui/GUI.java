@@ -352,7 +352,7 @@ public class GUI{
                 }
                 JButton submitButtonForType = new JButton("Submit");
                 JLabel seatTypeLabel = new JLabel("Chose Seat Type");
-                String[] seatTypes = {"VIP", "Regular", "Student"};
+                String[] seatTypes = {"Regular", "VIP"};
 
                 eventNameLabel.setBounds(25, 10, 275, 90);
                 eventList.setBounds(25, 85, 275, 40);
@@ -363,12 +363,18 @@ public class GUI{
                 JLabel numberOfTicketsAvailableLabel = new JLabel("Number of Tickets Available");
                 JLabel ticketsLabel = new JLabel("Number of Tickets");
                 JTextField ticketsField = new JTextField();
-                int ticketsAvailable = 20; // You can replace this with actual logic
+                int ticketsAvailable = 0; // You can replace this with actual logic
+                try {
+                    ticketsAvailable = availableTickets(eventList.getSelectedIndex() + 1, seatTypeList.getSelectedIndex() + 1);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 JLabel ticketsAvailableLabel = new JLabel("Tickets Available: " + ticketsAvailable);
                 JButton submitButton = new JButton("Submit");
 
 
-               submitButtonForType.addActionListener(new ActionListener() {
+                int finalTicketsAvailable = ticketsAvailable;
+                submitButtonForType.addActionListener(new ActionListener() {
                    @Override
                    public void actionPerformed(ActionEvent e) {
                        seatTypeLabel.setBounds(25, 200, 275, 90);
@@ -382,8 +388,7 @@ public class GUI{
                        seatTypeList.addActionListener(new ActionListener() {
                            @Override
                            public void actionPerformed(ActionEvent e) {
-                               //String selectedSeatType = (String) seatTypeList.getSelectedItem();
-                               JLabel ticketsAvailableLabel = new JLabel(""+ticketsAvailable);
+                               JLabel ticketsAvailableLabel = new JLabel(""+ finalTicketsAvailable);
                                ticketsAvailableLabel.setBounds(25, 375, 275, 90);
                                ticketsAvailableLabel.setFont(new Font("Arial", Font.BOLD, 20));
                                rightPanel.add(ticketsAvailableLabel);
@@ -426,7 +431,7 @@ public class GUI{
                         rightPanel.repaint();
                     }
                 });
-            }
+            ;}
         });
 
         deleteBookingButton.addActionListener(new ActionListener() /* DELETE BOOKING BUTTON ACTIONS ||6|| */{

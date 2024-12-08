@@ -149,9 +149,22 @@ public class Main {
                     break;
                 case "6":
                     System.out.println("Delete booking");
+                    // show all bookings ids
+                    ResultSet rs3 = get("SELECT * FROM bookings");
+                    while (rs3.next()) {
+                        System.out.println(rs3.getInt("BookingId"));
+                    }
+                    System.out.println("Enter booking id: ");
+                    int bookingId = scanner.nextInt();
+                    if (deleteBooking(bookingId)) {
+                        System.out.println("Booking deleted successfully");
+                    } else {
+                        System.out.println("Booking not deleted");
+                    }
                     break;
                 case "7":
                     System.out.println("Available-Booked tickets for event");
+
                     break;
                 case "8":
                     System.out.println("Income for event");

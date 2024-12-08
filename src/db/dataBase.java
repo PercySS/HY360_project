@@ -2,6 +2,7 @@ package db;
 
 
 
+import javax.swing.*;
 import java.sql.*;
 
 
@@ -134,6 +135,89 @@ public class dataBase {
         update("DELETE * FROM " + tableName);
     }
 
+    public static int[] booked_availableTickets(int EventId) throws SQLException {
+        ResultSet rs = get("SELECT * FROM events WHERE EventId = " + EventId);
+        rs.next();
+        int tReg = rs.getInt("tReg");
+        int tVIP = rs.getInt("tVIP");
+
+        rs = get("SELECT * FROM bookings WHERE EventId = " + EventId);
+        while (rs.next()) {
+            tReg -= rs.getInt("tReg");
+            tVIP -= rs.getInt("tVIP");
+        }
+
+        return new int[]{tReg, tVIP};
+    }
+
+
+    public static float eventIncome(int EventId) throws SQLException {
+        ResultSet rs = get("SELECT * FROM bookings WHERE EventId = " + EventId);
+        float income = 0;
+        while (rs.next()) {
+            income += rs.getFloat("Cost");
+        }
+
+        return income;
+    }
+
+    public static String mostPopularEvent() throws SQLException {
+        // most popular event based on bookings
+        ResultSet rs = get("SELECT EventId, COUNT(EventId) AS count FROM bookings GROUP BY EventId ORDER BY count DESC LIMIT 1");
+        rs.next();
+        int eventId = rs.getInt("EventId");
+
+        rs = get("SELECT * FROM events WHERE EventId = " + eventId);
+        rs.next();
+        return rs.getString("Name");
+    }
+
+    public static String mostProfitableEvent(Date d1, Date d2) throws SQLException {
+        // most profitable event based in a certain time period
+
+        // check if d1 pre dates d2
+        if (d1.after(d2)) {
+            JOptionPane.showMessageDialog(null, "Invalid date range", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        ResultSet rs = get("SELECT EventId, SUM(Cost) AS sum FROM bookings WHERE BookingDate BETWEEN '" + d1 + "' AND '" + d2 + "' GROUP BY EventId ORDER BY sum DESC LIMIT 1");
+        rs.next();
+        int eventId = rs.getInt("EventId");
+
+        rs = get("SELECT * FROM events WHERE EventId = " + eventId);
+        rs.next();
+        return rs.getString("Name");
+    }
+
+    public static float[] profitsTickets(int EventId) throws SQLException {
+        float profitR = 0, profitV = 0;
+
+        ResultSet rs;
+        if (EventId == 0) {
+            // all events
+            rs = get("SELECT * FROM ticketsRegular WHERE AVAILABILITY = 0");
+            while (rs.next()) {
+                profitR += rs.getFloat("Price");
+            }
+
+            rs = get("SELECT * FROM ticketsVIP WHERE AVAILABILITY = 0");
+        } else {
+            // one event
+            rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND AVAILABILITY = 0");
+            while (rs.next()) {
+                profitR += rs.getFloat("Price");
+            }
+
+            rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND AVAILABILITY = 0");
+        }
+
+        while (rs.next()) {
+            profitV += rs.getFloat("Price");
+        }
+
+        return new float[]{profitR, profitV};
+    }
 
 
 }
