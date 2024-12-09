@@ -16,7 +16,7 @@ import static classes.Customer.*;
 import static db.dataBase.*;
 
 public class GUI{
-    JFrame frame = new JFrame("TicketNow");
+    JFrame frame = new JFrame("Agency DB Project");
     JPanel leftPanel = new JPanel();
     JPanel rightPanel = new JPanel();
     JButton addEventButton = new JButton("Add Event"); //1
@@ -29,23 +29,44 @@ public class GUI{
     JButton additionalFeaturesButton = new JButton("Additional Features");//8
 
     private void initButtons(){
+        // 1st button
         addEventButton.setBounds(25, 10, 275, 90);
+        configButtons(addEventButton);
+
+        // 2nd button
         deleteEventButton.setBounds(25, 120, 275, 90);
+        configButtons(deleteEventButton);
+
+        // 3rd button
         registrationButton.setBounds(25, 230, 275, 90);
+        configButtons(registrationButton);
+
+        // 4th button
         deleteUserButton.setBounds(25, 340, 275, 90);
+        configButtons(deleteUserButton);
+
+        // 5th button
         reserveButton.setBounds(25, 450, 275, 90);
+        configButtons(reserveButton);
+
+        // 6th button
         deleteBookingButton.setBounds(25, 560, 275, 90);
+        configButtons(deleteBookingButton);
+
+        // 7th button
         availableTicketsForEventButton.setBounds(25, 670, 275, 90);
+        configButtons(availableTicketsForEventButton);
+
+        // 8th button
         additionalFeaturesButton.setBounds(25, 780, 275, 90);
-
-
+        configButtons(additionalFeaturesButton);
     }
 
     public void initPanels(JPanel left, JPanel right){
         left.setVisible(true);
         right.setVisible(true);
-        left.setBackground(Color.RED);
-        right.setBackground(Color.BLUE);
+        left.setBackground(Color.decode("#2E4E3F"));
+        right.setBackground(Color.decode("#4E6F56"));
         left.setBounds(0, 0, 325, 900);
         right.setBounds(325, 0, 975, 900);
         left.setLayout(null);
@@ -85,34 +106,57 @@ public class GUI{
                 JLabel costLabel = new JLabel("Cost");
                 JTextField cost = new JTextField();
                 JButton submitButton = new JButton("Submit");
+
                 eventNameLabel.setBounds(25, 10, 275, 90);
+                configLabel(eventNameLabel);
+
                 eventDateLabel.setBounds(25, 135, 275, 90);
+                configLabel(eventDateLabel);
+
                 eventTimeLabel.setBounds(25, 260, 275, 90);
+                configLabel(eventTimeLabel);
+
                 eventTypeLabel.setBounds(25, 385, 275, 90);
+                configLabel(eventTypeLabel);
+
                 eventCapacityLabel.setBounds(25, 510, 275, 90);
+                configLabel(eventCapacityLabel);
+
                 eventName.setBounds(25, 85, 275, 40);
+                configTextField(eventName);
+
                 eventDate.setBounds(25, 210, 275, 40);
+                configTextField(eventDate);
+
                 eventTime.setBounds(25, 335, 275, 40);
+                configTextField(eventTime);
+
                 eventType.setBounds(25, 460, 275, 40);
+                configTextField(eventType);
+
                 eventCapacity.setBounds(25, 585, 275, 40);
+                configTextField(eventCapacity);
 
                 vipTicketsLabel.setBounds(400, 10, 275, 90);
-                regularTicketsLabel.setBounds(400, 135, 275, 90);
-                vipTickets.setBounds(400, 85, 275, 40);
-                regularTickets.setBounds(400, 210, 275, 40);
-                costLabel.setBounds(400, 250, 275, 90);
-                cost.setBounds(400, 320, 275, 40);
-                submitButton.setBounds(225, 700, 275, 90);
+                configLabel(vipTicketsLabel);
 
-                //label editing
-                eventNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                eventDateLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                eventTimeLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                eventTypeLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                eventCapacityLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                vipTicketsLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                regularTicketsLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                costLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                regularTicketsLabel.setBounds(400, 135, 275, 90);
+                configLabel(regularTicketsLabel);
+
+                vipTickets.setBounds(400, 85, 275, 40);
+                configTextField(vipTickets);
+
+                regularTickets.setBounds(400, 210, 275, 40);
+                configTextField(regularTickets);
+
+                costLabel.setBounds(400, 260, 275, 90);
+                configLabel(costLabel);
+
+                cost.setBounds(400, 335, 275, 40);
+                configTextField(cost);
+
+                submitButton.setBounds(225, 700, 275, 90);
+                configButtons(submitButton);
 
                 rightPanel.add(eventName);
                 rightPanel.add(eventDate);
@@ -194,10 +238,16 @@ public class GUI{
 
                 JButton cancelEventButton = new JButton("Cancel Event");
                 yourReservationsLabel.setBounds(25, 10, 275, 90);
+                configLabel(yourReservationsLabel);
+
                 eventList.setBounds(25, 85, 275, 40);
+                configComboBox(eventList);
+
+
                 cancelEventButton.setBounds(25, 135, 200, 50);
-                //label editing
-                yourReservationsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(cancelEventButton);
+
+
                 rightPanel.add(eventList);
                 rightPanel.add(cancelEventButton);
                 rightPanel.add(yourReservationsLabel);
@@ -214,7 +264,7 @@ public class GUI{
                             if (deleteEvent(Integer.parseInt(eventToDelete.split(" ")[0]))) {
                                 JLabel eventDeleteLabel = new JLabel("Event Deleted!");
                                 eventDeleteLabel.setBounds(25, 170, 275, 90);
-                                eventDeleteLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                                configLabel(eventDeleteLabel);
                                 rightPanel.add(eventDeleteLabel);
                             }
                         } catch (SQLException ex) {
@@ -241,16 +291,25 @@ public class GUI{
                 JLabel creditInfoLabel = new JLabel("Credit Card Info");
                 JButton submitButton = new JButton("Submit");
                 fullNameLabel.setBounds(25, 10, 275, 90);
+                configLabel(fullNameLabel);
+
                 emailLabel.setBounds(25, 135, 275, 90);
+                configLabel(emailLabel);
+
                 creditInfoLabel.setBounds(25, 260, 275, 90);
+                configLabel(creditInfoLabel);
+
                 fullName.setBounds(25, 85, 275, 40);
+                configTextField(fullName);
+
                 email.setBounds(25, 210, 275, 40);
+                configTextField(email);
+
                 creditInfo.setBounds(25, 335, 275, 40);
+                configTextField(creditInfo);
+
                 submitButton.setBounds(25, 385, 275, 90);
-                //label editing
-                fullNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                emailLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                creditInfoLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(submitButton);
 
 
                 rightPanel.add(fullName);
@@ -303,10 +362,15 @@ public class GUI{
 
                 JButton deleteUserButton = new JButton("Delete User");
                 yourReservationsLabel.setBounds(25, 10, 275, 90);
+                configLabel(yourReservationsLabel);
+
                 userList.setBounds(25, 85, 275, 40);
+                configComboBox(userList);
+
                 deleteUserButton.setBounds(25, 135, 200, 50);
-                //label editing
-                yourReservationsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(deleteUserButton);
+
+
                 rightPanel.add(userList);
                 rightPanel.add(deleteUserButton);
                 rightPanel.add(yourReservationsLabel);
@@ -371,15 +435,26 @@ public class GUI{
 
                 JButton submitButton = new JButton("Submit");
                 clientLabel.setBounds(25, 10, 275, 90);
+                configLabel(clientLabel);
+
                 clientList.setBounds(25, 85, 275, 40);
+                configComboBox(clientList);
+
                 eventLabel.setBounds(25, 135, 275, 90);
+                configLabel(eventLabel);
+
                 eventList.setBounds(25, 210, 275, 40);
+                configComboBox(eventList);
+
                 bookingDate.setBounds(25, 335, 275, 40);
+                configTextField(bookingDate);
+
                 submitButton.setBounds(25, 385, 200, 50);
+                configButtons(submitButton);
+
                 dateLabel.setBounds(25, 260, 275, 90);
-                //label editing
-                clientLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                eventLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configLabel(dateLabel);
+
                 rightPanel.add(submitButton);
                 rightPanel.add(clientList);
                 rightPanel.add(eventList);
@@ -406,7 +481,7 @@ public class GUI{
                         }
 
 
-                        // show label for the tickets and textboxes to get the ticketVIP and ticketRegular
+                        // show label for the tickets and text box to get the ticketVIP and ticketRegular
                         JLabel ticketVIPLabel = null;
                         try {
                             ticketVIPLabel = new JLabel("VIP Tickets available:" + availableTickets(eventSelected, 2));
@@ -425,13 +500,20 @@ public class GUI{
                         JTextField ticketRegular = new JTextField();
                         JButton submitButton2 = new JButton("Submit");
                         ticketVIPLabel.setBounds(25, 10, 275, 90);
+                        configLabel(ticketVIPLabel);
+
                         ticketVIP.setBounds(25, 85, 275, 40);
+                        configTextField(ticketVIP);
+
                         ticketRegularLabel.setBounds(25, 135, 275, 90);
+                        configLabel(ticketRegularLabel);
+
                         ticketRegular.setBounds(25, 210, 275, 40);
+                        configTextField(ticketRegular);
+
                         submitButton2.setBounds(25, 260, 200, 50);
-                        //label editing
-                        ticketVIPLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                        ticketRegularLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                        configButtons(submitButton2);
+
                         rightPanel.add(ticketVIP);
                         rightPanel.add(ticketRegular);
                         rightPanel.add(submitButton2);
@@ -486,10 +568,14 @@ public class GUI{
                 }
                 JButton submitButton = new JButton("Submit");
                 clientLabel.setBounds(25, 10, 275, 90);
+                configLabel(clientLabel);
+
                 clientList.setBounds(25, 85, 275, 40);
+                configComboBox(clientList);
+
                 submitButton.setBounds(25, 135, 200, 50);
-                //label editing
-                clientLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(submitButton);
+
                 rightPanel.add(clientList);
                 rightPanel.add(submitButton);
                 rightPanel.add(clientLabel);
@@ -515,10 +601,15 @@ public class GUI{
                         }
                         JButton submitButton2 = new JButton("Submit");
                         bookingLabel.setBounds(25, 200, 275, 90);
+                        configLabel(bookingLabel);
+
                         bookingList.setBounds(25, 275, 275, 40);
+                        configComboBox(bookingList);
+
                         submitButton2.setBounds(25, 325, 200, 50);
-                        //label editing
-                        bookingLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                        configButtons(submitButton2);
+
+
                         rightPanel.add(bookingList);
                         rightPanel.add(submitButton2);
                         rightPanel.add(bookingLabel);
@@ -528,7 +619,6 @@ public class GUI{
                         submitButton2.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 rightPanel.setLayout(null);
-                                //edw kanei delte to booking
                                 String bookingToDeleteSTR = (String) bookingList.getSelectedItem();
                                 try {
                                     assert bookingToDeleteSTR != null;
@@ -569,10 +659,14 @@ public class GUI{
                 }
                 JButton submitButton = new JButton("Submit");
                 eventNameLabel.setBounds(25, 10, 275, 90);
+                configLabel(eventNameLabel);
+
                 eventList.setBounds(25, 85, 275, 40);
+                configComboBox(eventList);
+
                 submitButton.setBounds(25, 135, 200, 50);
-                //label editing
-                eventNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(submitButton);
+
                 rightPanel.add(eventList);
                 rightPanel.add(submitButton);
                 rightPanel.add(eventNameLabel);
@@ -586,21 +680,24 @@ public class GUI{
                         JLabel seatTypeLabel = new JLabel("Chose Seat Type");
                         String[] seatTypes = {"VIP", "Regular"};
                         JComboBox<String> seatTypeList = new JComboBox<>(seatTypes);
-                        JLabel showTicketsLeft = null;
+                        JLabel showTicketsLeft;
                         try {
                             assert selectedEvent != null;
                             showTicketsLeft = new JLabel("Tickets Left: " + availableTickets(Integer.parseInt(selectedEvent.split(" ")[0]), seatTypeList.getSelectedIndex() == 0 ? 2 : 1));
+                            configLabel(showTicketsLeft);
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
                         }
                         JButton checkButton = new JButton("Check for tickets");
                         seatTypeLabel.setBounds(25, 200, 275, 90);
-                        seatTypeList.setBounds(25, 275, 275, 40);
-                        checkButton.setBounds(25, 325, 200, 50);
+                        configLabel(seatTypeLabel);
 
-                        //label editing
-                        seatTypeLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                        showTicketsLeft.setFont(new Font("Arial", Font.BOLD, 20));
+                        seatTypeList.setBounds(25, 275, 275, 40);
+                        configComboBox(seatTypeList);
+
+                        checkButton.setBounds(25, 325, 200, 50);
+                        configButtons(checkButton);
+
                         rightPanel.add(seatTypeList);
                         rightPanel.add(checkButton);
                         rightPanel.add(seatTypeLabel);
@@ -613,9 +710,9 @@ public class GUI{
                             public void actionPerformed(ActionEvent e) {
                                 rightPanel.setLayout(null);
                                 finalShowTicketsLeft.setBounds(25, 400, 275, 90);
-                                String selectedSeatType = (String) seatTypeList.getSelectedItem(); // Get selected seat type
+                                String selectedSeatType = (String) seatTypeList.getSelectedItem();
                                 System.out.println("Selected Seat Type: " + selectedSeatType);
-                                int ticketsLeft = 20; // You can replace this with actual logic
+                                int ticketsLeft = 20;
                                 finalShowTicketsLeft.setText("Tickets Left: " + ticketsLeft);
                                 rightPanel.revalidate();
                                 rightPanel.repaint();
@@ -657,10 +754,15 @@ public class GUI{
                     throw new RuntimeException(ex);
                 }
                 incomeOfEventLabel.setBounds(25, 10, 275, 90);
+                configLabel(incomeOfEventLabel);
+
                 eventList.setBounds(25, 85, 275, 40);
+                configComboBox(eventList);
+
                 submitButton.setBounds(25, 135, 200, 50);
-                //label editing
-                incomeOfEventLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(submitButton);
+
+
                 rightPanel.add(eventList);
                 rightPanel.add(submitButton);
                 rightPanel.add(incomeOfEventLabel);
@@ -672,15 +774,12 @@ public class GUI{
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
                         JLabel incomeLabel = new JLabel("Income: " + finalIncome);
-                        int income = 2000; // You can replace this with actual logic
-                        JLabel incomeValue = new JLabel("" + income);
+
                         incomeLabel.setBounds(25, 180, 275, 90);
-                        incomeValue.setBounds(25, 240, 275, 40);
-                        //label editing
-                        incomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                        incomeValue.setFont(new Font("Arial", Font.BOLD, 20));
+                        configLabel(incomeLabel);
+
+
                         rightPanel.add(incomeLabel);
-                        rightPanel.add(incomeValue);
                         rightPanel.revalidate();
                         rightPanel.repaint();
                     }
@@ -690,11 +789,12 @@ public class GUI{
                 JLabel mostPopularEventLabel = new JLabel("Most Popular Event is:");
                 JButton submitButtonForEvent = new JButton("Submit");
                 mostPopularEventLabel.setBounds(25, 300, 330, 90);
+                configLabel(mostPopularEventLabel);
+
                 submitButtonForEvent.setBounds(25, 430, 200, 50);
+                configButtons(submitButtonForEvent);
 
 
-                //label editing
-                mostPopularEventLabel.setFont(new Font("Arial", Font.BOLD, 20));
                 rightPanel.add(mostPopularEventLabel);
                 rightPanel.add(submitButtonForEvent);
                 rightPanel.revalidate();
@@ -703,7 +803,7 @@ public class GUI{
                 submitButtonForEvent.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
-                        String mostPopularEvent; // You can replace this with actual logic
+                        String mostPopularEvent;
                         try {
                             mostPopularEvent = mostPopularEvent();
                         } catch (SQLException ex) {
@@ -711,7 +811,9 @@ public class GUI{
                         }
                         JLabel mostPopularEventValue = new JLabel(mostPopularEvent);
                         mostPopularEventValue.setBounds(25, 350, 275, 90);
-                        mostPopularEventValue.setFont(new Font("Arial", Font.BOLD, 20));
+                        configLabel(mostPopularEventValue);
+
+
                         rightPanel.add(mostPopularEventValue);
                         rightPanel.revalidate();
                         rightPanel.repaint();
@@ -726,13 +828,20 @@ public class GUI{
                 JButton submitButtonForDate = new JButton("Submit");
 
                 dateStartLabel.setBounds(25, 500, 275, 90);
+                configLabel(dateStartLabel);
+
                 dateStart.setBounds(25, 570, 275, 40);
+                configTextField(dateStart);
+
                 dateEndLabel.setBounds(25, 600, 275, 90);
+                configLabel(dateEndLabel);
+
                 dateEnd.setBounds(25, 670, 275, 40);
+                configTextField(dateEnd);
+
                 submitButtonForDate.setBounds(25, 730, 200, 50);
-                //label editing
-                dateStartLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                dateEndLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                configButtons(submitButtonForDate);
+
                 rightPanel.add(dateStart);
                 rightPanel.add(dateEnd);
                 rightPanel.add(submitButtonForDate);
@@ -749,9 +858,9 @@ public class GUI{
                         }
                         JLabel messageLabel = new JLabel(info);
                         messageLabel.setBounds(25, 770, 275, 90);
-                        messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                        rightPanel.add(messageLabel);
+                        configLabel(messageLabel);
 
+                        rightPanel.add(messageLabel);
                         rightPanel.revalidate();
                         rightPanel.repaint();
                     }
@@ -776,14 +885,20 @@ public class GUI{
                 JComboBox<String> ticketTypeList = new JComboBox<>(ticketTypes);
                 JButton submitButton22 = new JButton("Submit");
                 eventLabel.setBounds(500, 10, 275, 90);
-                eventLista.setBounds(500, 85, 275, 40);
-                ticketTypeLabel.setBounds(500, 135, 275, 90);
-                ticketTypeList.setBounds(500, 210, 275, 40);
-                submitButton22.setBounds(500, 260, 200, 50);
+                configLabel(eventLabel);
 
-                //label editing
-                eventLabel.setFont(new Font("Arial", Font.BOLD, 20));
-                ticketTypeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                eventLista.setBounds(500, 85, 275, 40);
+                configComboBox(eventLista);
+
+                ticketTypeLabel.setBounds(500, 135, 275, 90);
+                configLabel(ticketTypeLabel);
+
+                ticketTypeList.setBounds(500, 210, 275, 40);
+                configComboBox(ticketTypeList);
+
+                submitButton22.setBounds(500, 260, 200, 50);
+                configButtons(submitButton22);
+
                 rightPanel.add(ticketTypeList);
                 rightPanel.add(ticketTypeLabel);
                 rightPanel.add(eventLista);
@@ -804,6 +919,7 @@ public class GUI{
                             }
                         } else {
                             try {
+                                assert event != null;
                                 profits = profitsTickets(Integer.parseInt(event.split(" ")[0]));
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
@@ -812,7 +928,8 @@ public class GUI{
                         rightPanel.setLayout(null);
                         JLabel messageLabel = new JLabel("The event profits are: "+ (ticketTypeList.getSelectedIndex() == 0 ? profits[0] : profits[1]));
                         messageLabel.setBounds(500, 325, 275, 90);
-                        messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                        configLabel(messageLabel);
+
                         rightPanel.add(messageLabel);
                         rightPanel.revalidate();
                         rightPanel.repaint();
@@ -835,6 +952,7 @@ public class GUI{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        frame.setIconImage(new ImageIcon("src/images/percySSthinking.png").getImage());
         buttonActions();
     }
 
@@ -845,5 +963,58 @@ public class GUI{
         initDb();
         GUI gui = new GUI();
 
+    }
+
+    public static void configButtons(JButton button) {
+        button.setFocusPainted(false);
+        button.setFont(new Font("Serif", Font.BOLD, 20));
+        button.setForeground(Color.decode("#0c0c0c"));
+        button.setBackground(Color.decode("#8A9F70"));
+        button.setContentAreaFilled(false);
+        button.setOpaque(true);
+        button.setBorderPainted(true);
+        button.setBorder(BorderFactory.createLineBorder(Color.decode("#0c0c0c"), 2));
+    }
+
+    public static void configLabel(JLabel label) {
+        label.setFont(new Font("Serif", Font.BOLD, 20));
+        label.setForeground(Color.decode("#0c0c0c"));
+    }
+
+    public static void configTextField(JTextField textField) {
+
+        textField.setBackground(Color.decode("#2E4E3F"));
+        textField.setForeground(Color.decode("#D0D0D0"));
+
+
+        textField.setFont(new Font("Dialog", Font.PLAIN, 16));
+
+
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.decode("#8A9F70"), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+
+        textField.setMargin(new Insets(5, 10, 5, 10));
+    }
+
+    public static void configComboBox(JComboBox<String> comboBox) {
+        comboBox.setBackground(Color.decode("#2E4E3F"));
+        comboBox.setForeground(Color.decode("#D0D0D0"));
+
+        comboBox.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+        comboBox.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(138, 159, 112), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+
+        comboBox.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
+            private void paintPopupBackground(Graphics g, JComponent c, int width, int height) {
+                g.setColor(new Color(30, 45, 36));
+                g.fillRect(0, 0, width, height);
+            }
+        });
     }
 }
