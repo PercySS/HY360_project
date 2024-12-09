@@ -74,12 +74,26 @@ public class Booking {
     }
 
     public static boolean deleteBooking(int BookingId) throws SQLException {
+        String creditcard;
+        int customerId;
         // check if the booking exists
         ResultSet rs = get("SELECT * FROM bookings WHERE BookingId = " + BookingId);
         if (!rs.next()) {
             JOptionPane.showMessageDialog(null, "Booking does not exist", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
+        } else {
+            customerId = rs.getInt("CustomerId");
         }
+
+        rs = get("SELECT * FROM customers WHERE CustomerId = " + customerId);
+        rs.next();
+        creditcard = rs.getString("CreditCardInfo");
+
+        rs = get("SELECT * FROM bookings WHERE BookingId = " + BookingId);
+        rs.next();
+
+
+        JOptionPane.showMessageDialog(null, "The cost: " + rs.getFloat("Cost") + "will be refunded to account: " + creditcard + ".", "Refund", JOptionPane.INFORMATION_MESSAGE);
 
         // make all tickets included in this booking available again
         rs = get("SELECT * FROM ticketsRegular WHERE BookingId = " + BookingId);
@@ -91,6 +105,7 @@ public class Booking {
         while (rs.next()) {
             update("UPDATE ticketsVIP SET Availability = 1, BookingId = NULL WHERE TicketId = " + rs.getInt("TicketId"));
         }
+
 
 
         JOptionPane.showMessageDialog(null, "Booking deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

@@ -105,9 +105,9 @@ public class Event {
         int count = 0;
 
         if (Type == 1) {
-            rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+            rs = get("SELECT * FROM ticketsRegular WHERE EventId = " + EventId + " AND Availability = 1");
         } else {
-            rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND BookingId IS NULL AND Availability = 1");
+            rs = get("SELECT * FROM ticketsVIP WHERE EventId = " + EventId + " AND Availability = 1");
         }
 
         while (rs.next()) {
