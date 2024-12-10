@@ -197,7 +197,6 @@ public class GUI{
                         assert date1 != null;
                         try {
                             if (addEvent(strEventName, new java.sql.Date(date1.getTime()), Time.valueOf(strEventTimeText), strEventTypeText, Integer.parseInt(strEventCapacityText), Integer.parseInt(strRegularTickets), Integer.parseInt(strVIPTickets), Float.parseFloat(strCost))) {
-                                // clear all the text fields
                                 eventName.setText("");
                                 eventDate.setText("");
                                 eventTime.setText("");
@@ -327,7 +326,6 @@ public class GUI{
 
                         try {
                             if (addCustomer(fullNameText, emailText, creditInfoText)) {
-                                // clear all the text fields
                                 fullName.setText("");
                                 email.setText("");
                                 creditInfo.setText("");
@@ -404,8 +402,7 @@ public class GUI{
                 rightPanel.removeAll();
                 rightPanel.repaint();
 
-                // choosing customer
-                JLabel clientLabel = new JLabel("Chose Client");
+                JLabel clientLabel = new JLabel("Choose Client");
                 JComboBox<String> clientList = new JComboBox<>();
                 String id_name;
                 try {
@@ -418,7 +415,7 @@ public class GUI{
                     throw new RuntimeException(ex);
                 }
 
-                JLabel eventLabel = new JLabel("Chose Event");
+                JLabel eventLabel = new JLabel("Choose Event");
                 JComboBox<String> eventList = new JComboBox<>();
                 try {
                     ResultSet rs = get("SELECT * FROM events");
@@ -480,8 +477,6 @@ public class GUI{
                             throw new RuntimeException(ex);
                         }
 
-
-                        // show label for the tickets and text box to get the ticketVIP and ticketRegular
                         JLabel ticketVIPLabel = null;
                         try {
                             ticketVIPLabel = new JLabel("VIP Tickets available:" + availableTickets(eventSelected, 2));
@@ -531,7 +526,6 @@ public class GUI{
 
                                 try {
                                     if (addBooking(clientSelected, new java.sql.Date(finalBookingDateSTR.getTime()), eventSelected, Integer.parseInt(ticketRegularSTR), Integer.parseInt(ticketVIPSTR))) {
-                                        // clear all the text fields
                                         ticketVIP.setText("");
                                         ticketRegular.setText("");
                                     }
@@ -554,7 +548,7 @@ public class GUI{
                 rightPanel.setLayout(null);
                 rightPanel.removeAll();
                 rightPanel.repaint();
-                JLabel clientLabel = new JLabel("Chose Client");
+                JLabel clientLabel = new JLabel("Choose Client");
                 JComboBox<String> clientList = new JComboBox<>();
                 String id_name;
                 try {
@@ -586,7 +580,7 @@ public class GUI{
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
                         String clientSTR = (String) clientList.getSelectedItem();
-                        JLabel bookingLabel = new JLabel("Chose Booking");
+                        JLabel bookingLabel = new JLabel("Choose Booking");
                         JComboBox<String> bookingList = new JComboBox<>();
                         String id_name;
                         try {
@@ -645,7 +639,7 @@ public class GUI{
                 rightPanel.setLayout(null);
                 rightPanel.removeAll();
                 rightPanel.repaint();
-                JLabel eventNameLabel = new JLabel("Chose Event");
+                JLabel eventNameLabel = new JLabel("Choose Event");
                 JComboBox<String> eventList = new JComboBox<>();
                 String id_name;
                 try {
@@ -675,9 +669,9 @@ public class GUI{
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
-                        String selectedEvent = (String) eventList.getSelectedItem(); //TODO! FIX THE STRINGS HERE
+                        String selectedEvent = (String) eventList.getSelectedItem();
                         System.out.println(selectedEvent);
-                        JLabel seatTypeLabel = new JLabel("Chose Seat Type");
+                        JLabel seatTypeLabel = new JLabel("Choose Seat Type");
                         String[] seatTypes = {"VIP", "Regular"};
                         JComboBox<String> seatTypeList = new JComboBox<>(seatTypes);
                         JLabel showTicketsLeft;
@@ -868,7 +862,7 @@ public class GUI{
 
                 // ||||12||||
                 rightPanel.setLayout(null);
-                JLabel eventLabel = new JLabel("Chose Event");
+                JLabel eventLabel = new JLabel("Choose Event");
                 JComboBox<String> eventLista = new JComboBox<>();
                 eventLista.addItem("All");
                 try {
@@ -880,7 +874,7 @@ public class GUI{
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                JLabel ticketTypeLabel = new JLabel("Chose Ticket Type");
+                JLabel ticketTypeLabel = new JLabel("Choose Ticket Type");
                 String[] ticketTypes = {"Regular", "VIP"};
                 JComboBox<String> ticketTypeList = new JComboBox<>(ticketTypes);
                 JButton submitButton22 = new JButton("Submit");
