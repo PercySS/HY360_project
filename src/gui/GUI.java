@@ -97,8 +97,8 @@ public class GUI{
                 JTextField vipTickets = new JTextField();
                 JTextField regularTickets = new JTextField();
                 JLabel eventNameLabel = new JLabel("Event Name");
-                JLabel eventDateLabel = new JLabel("Event Date");
-                JLabel eventTimeLabel = new JLabel("Event Time");
+                JLabel eventDateLabel = new JLabel("Event Date (yyyy-MM-dd)");
+                JLabel eventTimeLabel = new JLabel("Event Time (hh:mm:ss)");
                 JLabel eventTypeLabel = new JLabel("Event Type");
                 JLabel eventCapacityLabel = new JLabel("Event Capacity");
                 JLabel vipTicketsLabel = new JLabel("VIP Tickets");
@@ -261,10 +261,7 @@ public class GUI{
                         try {
                             assert eventToDelete != null;
                             if (deleteEvent(Integer.parseInt(eventToDelete.split(" ")[0]))) {
-                                JLabel eventDeleteLabel = new JLabel("Event Deleted!");
-                                eventDeleteLabel.setBounds(25, 170, 275, 90);
-                                configLabel(eventDeleteLabel);
-                                rightPanel.add(eventDeleteLabel);
+                                eventList.removeItemAt(eventList.getSelectedIndex());
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
@@ -427,7 +424,7 @@ public class GUI{
                     throw new RuntimeException(ex);
                 }
 
-                JLabel dateLabel = new JLabel("Booking Date");
+                JLabel dateLabel = new JLabel("Booking Date (yyyy-MM-dd)");
                 JTextField bookingDate = new JTextField();
 
                 JButton submitButton = new JButton("Submit");
@@ -815,9 +812,9 @@ public class GUI{
                 });
 
                 // ||||11||||
-                JLabel dateStartLabel = new JLabel("Date start");
+                JLabel dateStartLabel = new JLabel("Date start (yyyy-MM-dd)");
                 JTextField dateStart = new JTextField();
-                JLabel dateEndLabel = new JLabel("Date end");
+                JLabel dateEndLabel = new JLabel("Date end (yyyy-MM-dd)");
                 JTextField dateEnd = new JTextField();
                 JButton submitButtonForDate = new JButton("Submit");
 

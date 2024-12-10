@@ -3,6 +3,7 @@ package classes;
 import javax.swing.*;
 import java.sql.*;
 
+import static classes.Booking.deleteBooking;
 import static classes.Ticket.*;
 import static db.dataBase.*;
 
@@ -77,10 +78,11 @@ public class Event {
             JOptionPane.showMessageDialog(null, "Event not found", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        // reduce the tReg and tVIP tickets from the bookings
+
+        // delete all bookings for this event
         rs = get("SELECT * FROM bookings WHERE EventId = " + EventId);
         while (rs.next()) {
-            update("UPDATE bookings SET tReg = 0, tVIP = 0 WHERE BookingId = " + rs.getInt("BookingId"));
+            deleteBooking(rs.getInt("BookingId"));
         }
 
         // delete all tickets for this event
