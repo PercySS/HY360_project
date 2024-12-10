@@ -10,7 +10,7 @@ This project aims to demonstrate the practical application of the concepts learn
 
 ## Project Model
 The following picture demonstrates the project model, which includes the database schema and the file structure.
-![Image Alt Text](docs/database_final.png)
+![Image Alt Text](docs/dataBase_final_final.png)
 
 ## Project Structure
 The project is structured as the Professor's instructions. See [Project Structure](docs/ΗΥ360_project_2024.pdf) for more details.
