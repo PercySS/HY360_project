@@ -1012,7 +1012,7 @@ public class GUI{
 
         comboBox.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
             private void paintPopupBackground(Graphics g, JComponent c, int width, int height) {
-                g.setColor(new Color(30, 45, 36));
+                g.setColor(Color.decode("#2E4E3F"));
                 g.fillRect(0, 0, width, height);
             }
         });
