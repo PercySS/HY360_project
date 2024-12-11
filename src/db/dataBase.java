@@ -218,6 +218,36 @@
     
             return new float[]{profitR, profitV};
         }
+
+        public static boolean bookingsInTimeSpan(Date d1, Date d2) throws SQLException {
+            // check if dates not null
+            if (d1 == null || d2 == null) {
+                JOptionPane.showMessageDialog(null, "Invalid date range", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            //check valid input
+            if (d1.after(d2)) {
+                JOptionPane.showMessageDialog(null, "Invalid date range", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            ResultSet rs = get("SELECT * FROM bookings WHERE BookingDate BETWEEN '" + d1 + "' AND '" + d2 + "'");
+            String[] bookings = new String[100];
+            int i = 0, id;
+            while (rs.next()) {
+                bookings[i] = "Booking ID: " + rs.getInt("BookingId") + " | Customer ID: " + rs.getInt("CustomerId") + " | Event ID: " + rs.getInt("EventId") + " | Date: " + rs.getDate("BookingDate") + " | Cost: " + rs.getFloat("Cost") + "\n";
+                i++;
+            }
+
+            if (i == 0) {
+                JOptionPane.showMessageDialog(null, "No bookings in this time span", "Bookings", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
+
+            JOptionPane.showMessageDialog(null, bookings, "Bookings", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        }
     
     
     }

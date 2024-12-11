@@ -25,7 +25,7 @@ public class GUI{
     JButton deleteUserButton = new JButton("Delete Customer");//4
     JButton reserveButton = new JButton("Reserve tickets");//5
     JButton deleteBookingButton = new JButton("Delete Booking");//6
-    JButton availableTicketsForEventButton = new JButton("Tickets Left");//7
+    JButton showBookingsIntimespan = new JButton("Bookings");//7
     JButton additionalFeaturesButton = new JButton("Additional Features");//8
 
     private void initButtons(){
@@ -54,8 +54,8 @@ public class GUI{
         configButtons(deleteBookingButton);
 
         // 7th button
-        availableTicketsForEventButton.setBounds(25, 670, 275, 90);
-        configButtons(availableTicketsForEventButton);
+        showBookingsIntimespan.setBounds(25, 670, 275, 90);
+        configButtons(showBookingsIntimespan);
 
         // 8th button
         additionalFeaturesButton.setBounds(25, 780, 275, 90);
@@ -79,7 +79,7 @@ public class GUI{
         left.add(deleteUserButton);
         left.add(reserveButton);
         left.add(deleteBookingButton);
-        left.add(availableTicketsForEventButton);
+        left.add(showBookingsIntimespan);
         left.add(additionalFeaturesButton);
 
     }
@@ -631,87 +631,58 @@ public class GUI{
             }
         });
 
-        availableTicketsForEventButton.addActionListener(new ActionListener() /*AVAILABLE TICKETS FOR EVENT BUTTON ||7||*/{
+        showBookingsIntimespan.addActionListener(new ActionListener() /* Bookings in certain time span ||7||*/{
             public void actionPerformed(ActionEvent e) {
                 rightPanel.setLayout(null);
                 rightPanel.removeAll();
                 rightPanel.repaint();
-                JLabel eventNameLabel = new JLabel("Choose Event");
-                JComboBox<String> eventList = new JComboBox<>();
-                String id_name;
-                try {
-                    ResultSet rs = get("SELECT * FROM events");
-                    while (rs.next()) {
-                        id_name = rs.getString("EventId") + " " + rs.getString("Name");
-                        eventList.addItem(id_name);
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                JLabel dateStartLabel = new JLabel("Date start (yyyy-MM-dd)");
+                JTextField dateStart = new JTextField();
+                JLabel dateEndLabel = new JLabel("Date end (yyyy-MM-dd)");
+                JTextField dateEnd = new JTextField();
                 JButton submitButton = new JButton("Submit");
-                eventNameLabel.setBounds(25, 10, 275, 90);
-                configLabel(eventNameLabel);
 
-                eventList.setBounds(25, 85, 275, 40);
-                configComboBox(eventList);
+                dateStartLabel.setBounds(25, 10, 275, 90);
+                configLabel(dateStartLabel);
 
-                submitButton.setBounds(25, 135, 200, 50);
+                dateStart.setBounds(25, 85, 275, 40);
+                configTextField(dateStart);
+
+                dateEndLabel.setBounds(25, 135, 275, 90);
+                configLabel(dateEndLabel);
+
+                dateEnd.setBounds(25, 210, 275, 40);
+                configTextField(dateEnd);
+
+                submitButton.setBounds(25, 260, 200, 50);
                 configButtons(submitButton);
 
-                rightPanel.add(eventList);
+                rightPanel.add(dateStart);
+                rightPanel.add(dateEnd);
                 rightPanel.add(submitButton);
-                rightPanel.add(eventNameLabel);
+                rightPanel.add(dateStartLabel);
+                rightPanel.add(dateEndLabel);
                 rightPanel.revalidate();
                 rightPanel.repaint();
+
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         rightPanel.setLayout(null);
-                        String selectedEvent = (String) eventList.getSelectedItem();
-                        System.out.println(selectedEvent);
-                        JLabel seatTypeLabel = new JLabel("Choose Seat Type");
-                        String[] seatTypes = {"VIP", "Regular"};
-                        JComboBox<String> seatTypeList = new JComboBox<>(seatTypes);
-                        JLabel showTicketsLeft;
+                        String dateStartSTR = dateStart.getText();
+                        String dateEndSTR = dateEnd.getText();
                         try {
-                            assert selectedEvent != null;
-                            showTicketsLeft = new JLabel("Tickets Left: " + availableTickets(Integer.parseInt(selectedEvent.split(" ")[0]), seatTypeList.getSelectedIndex() == 0 ? 2 : 1));
-                            configLabel(showTicketsLeft);
+                            if (bookingsInTimeSpan(Date.valueOf(dateStartSTR), Date.valueOf(dateEndSTR))) {
+                                dateStart.setText("");
+                                dateEnd.setText("");
+                            }
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
                         }
-                        JButton checkButton = new JButton("Check for tickets");
-                        seatTypeLabel.setBounds(25, 200, 275, 90);
-                        configLabel(seatTypeLabel);
-
-                        seatTypeList.setBounds(25, 275, 275, 40);
-                        configComboBox(seatTypeList);
-
-                        checkButton.setBounds(25, 325, 200, 50);
-                        configButtons(checkButton);
-
-                        rightPanel.add(seatTypeList);
-                        rightPanel.add(checkButton);
-                        rightPanel.add(seatTypeLabel);
-                        rightPanel.add(showTicketsLeft);
-                        rightPanel.revalidate();
-                        rightPanel.repaint();
-
-                        JLabel finalShowTicketsLeft = showTicketsLeft;
-                        checkButton.addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                rightPanel.setLayout(null);
-                                finalShowTicketsLeft.setBounds(25, 400, 275, 90);
-                                String selectedSeatType = (String) seatTypeList.getSelectedItem();
-                                System.out.println("Selected Seat Type: " + selectedSeatType);
-                                int ticketsLeft = 20;
-                                finalShowTicketsLeft.setText("Tickets Left: " + ticketsLeft);
-                                rightPanel.revalidate();
-                                rightPanel.repaint();
-                            }
-                        });
                     }
                 });
+
             }
+
         });
 
         additionalFeaturesButton.addActionListener(new ActionListener() /* ADDITIONAL FEATURES BUTTON ||8|| */{
